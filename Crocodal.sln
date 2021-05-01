@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2911B25A-00B7-4DED-B54C-6C7DD22FE0F7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{188C9595-310F-435E-AD9A-311D5268B05F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crocodal", "src\Crocodal\Crocodal.csproj", "{3C4F7633-6D25-4153-9A4E-4B6EFD89F3DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{9DD93910-297C-42F5-B97B-2169CB4B3C26}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8E81F6AE-14BB-43CA-8313-5B8CD7E56BBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{385FEB43-6ED7-40B7-A569-B78BE129C532}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{E2B581E7-BCCE-49E6-B772-67F79DC50FE8}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build-and-push.yml = .github\workflows\build-and-push.yml
+		.github\workflows\build.yml = .github\workflows\build.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crocodal.Tests", "test\Crocodal.Tests\Crocodal.Tests.csproj", "{81454E77-85FA-4AF6-BAB2-28663443872E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C4F7633-6D25-4153-9A4E-4B6EFD89F3DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C4F7633-6D25-4153-9A4E-4B6EFD89F3DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C4F7633-6D25-4153-9A4E-4B6EFD89F3DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C4F7633-6D25-4153-9A4E-4B6EFD89F3DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81454E77-85FA-4AF6-BAB2-28663443872E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81454E77-85FA-4AF6-BAB2-28663443872E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81454E77-85FA-4AF6-BAB2-28663443872E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81454E77-85FA-4AF6-BAB2-28663443872E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3C4F7633-6D25-4153-9A4E-4B6EFD89F3DB} = {188C9595-310F-435E-AD9A-311D5268B05F}
+		{385FEB43-6ED7-40B7-A569-B78BE129C532} = {9DD93910-297C-42F5-B97B-2169CB4B3C26}
+		{E2B581E7-BCCE-49E6-B772-67F79DC50FE8} = {385FEB43-6ED7-40B7-A569-B78BE129C532}
+		{81454E77-85FA-4AF6-BAB2-28663443872E} = {8E81F6AE-14BB-43CA-8313-5B8CD7E56BBC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2DAA8A6F-63F9-4763-A4C1-8FBF1603C0BD}
+	EndGlobalSection
+EndGlobal
