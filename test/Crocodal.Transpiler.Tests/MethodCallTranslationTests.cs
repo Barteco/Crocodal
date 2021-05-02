@@ -1,20 +1,30 @@
 ﻿using Crocodal.Transpiler.Tests.Core;
+using Crocodal.Transpiler.Tests.Fixtures;
 using System;
 using Xunit;
 
 namespace Crocodal.Transpiler.Tests
 {
-    public class MethodCallTranslationTests
+    public class MethodCallTranslationTests : IClassFixture<CompilerFixture>
     {
         private readonly StatementTranslator _translator = new StatementTranslator();
+        private readonly CompilerFixture _fixture;
+
+        public MethodCallTranslationTests(CompilerFixture fixture)
+        {
+            _fixture = fixture;
+        }
 
         [Fact]
         public void ShouldParse_InstanceMethodCall()
         {
-            var unit = Compiler.Compile("int x = 5; x.ToString();");
+            // Arrange
+            var unit = _fixture.Compile("int x = 5; x.ToString();");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var expressions = ExpressionAssert.AsMultiline(expression);
             var methodCall = ExpressionAssert.AsMethodCall(expressions[1]);
             ExpressionAssert.Parameter(methodCall.Object, typeof(int), "x");
@@ -26,10 +36,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_InstanceMethodCall_WithArguments()
         {
-            var unit = Compiler.Compile("int x = 5; x.Equals(1);");
+            // Arrange
+            var unit = _fixture.Compile("int x = 5; x.Equals(1);");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var expressions = ExpressionAssert.AsMultiline(expression);
             var methodCall = ExpressionAssert.AsMethodCall(expressions[1]);
             ExpressionAssert.Parameter(methodCall.Object, typeof(int), "x");
@@ -42,10 +55,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_ChainedMethodCall()
         {
-            var unit = Compiler.Compile("int x = 5; x.ToString().ToLower();");
+            // Arrange
+            var unit = _fixture.Compile("int x = 5; x.ToString().ToLower();");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var expressions = ExpressionAssert.AsMultiline(expression);
             var methodCall = ExpressionAssert.AsMethodCall(expressions[1]);
             var chainedMethodCall = ExpressionAssert.AsMethodCall(methodCall.Object);
@@ -60,10 +76,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_StaticMethodCall()
         {
-            var unit = Compiler.Compile(@"DateTime.Parse("""");");
+            // Arrange
+            var unit = _fixture.Compile(@"DateTime.Parse("""");");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var methodCall = ExpressionAssert.AsMethodCall(expression);
             Assert.Null(methodCall.Object);
             Assert.Equal("Parse", methodCall.Method.Name);

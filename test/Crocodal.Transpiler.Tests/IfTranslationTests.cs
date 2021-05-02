@@ -1,19 +1,29 @@
 ﻿using Crocodal.Transpiler.Tests.Core;
+using Crocodal.Transpiler.Tests.Fixtures;
 using Xunit;
 
 namespace Crocodal.Transpiler.Tests
 {
-    public class IfTranslationTests
+    public class IfTranslationTests : IClassFixture<CompilerFixture>
     {
         private readonly StatementTranslator _translator = new StatementTranslator();
+        private readonly CompilerFixture _fixture;
+
+        public IfTranslationTests(CompilerFixture fixture)
+        {
+            _fixture = fixture;
+        }
 
         [Fact]
         public void ShouldParse_If_WithEmptyBody()
         {
-            var unit = Compiler.Compile("if(true) { }");
+            // Arrange
+            var unit = _fixture.Compile("if(true) { }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var ifStatement = ExpressionAssert.AsConditional(expression);
             ExpressionAssert.Constant(ifStatement.Test, true);
             var trueExpressions = ExpressionAssert.AsBlock(ifStatement.IfTrue);
@@ -24,10 +34,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_If_WithBody()
         {
-            var unit = Compiler.Compile("if(true) { var x = true; }");
+            // Arrange
+            var unit = _fixture.Compile("if(true) { var x = true; }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var ifStatement = ExpressionAssert.AsConditional(expression);
             ExpressionAssert.Constant(ifStatement.Test, true);
             var trueExpressions = ExpressionAssert.AsBlock(ifStatement.IfTrue);
@@ -38,10 +51,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_If_WithEmptyElse()
         {
-            var unit = Compiler.Compile("if(true) { var x = true; } else { }");
+            // Arrange
+            var unit = _fixture.Compile("if(true) { var x = true; } else { }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var ifStatement = ExpressionAssert.AsConditional(expression);
             ExpressionAssert.Constant(ifStatement.Test, true);
             var trueExpressions = ExpressionAssert.AsBlock(ifStatement.IfTrue);
@@ -53,10 +69,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_If_WithElse()
         {
-            var unit = Compiler.Compile("if(true) { var x = true; } else { var y = false; }");
+            // Arrange
+            var unit = _fixture.Compile("if(true) { var x = true; } else { var y = false; }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var ifStatement = ExpressionAssert.AsConditional(expression);
             ExpressionAssert.Constant(ifStatement.Test, true);
             var trueExpressions = ExpressionAssert.AsBlock(ifStatement.IfTrue);
@@ -68,10 +87,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_If_WithElseIf()
         {
-            var unit = Compiler.Compile("if(true) { var x = true; } else if (false) { var y = false; }");
+            // Arrange
+            var unit = _fixture.Compile("if(true) { var x = true; } else if (false) { var y = false; }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var ifStatement = ExpressionAssert.AsConditional(expression);
             ExpressionAssert.Constant(ifStatement.Test, true);
             var trueExpressions = ExpressionAssert.AsBlock(ifStatement.IfTrue);
@@ -86,10 +108,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_If_WithElseIf_WithElse()
         {
-            var unit = Compiler.Compile("if(true) { var x = true; } else if (false) { var y = false; } else { var z = false; }");
+            // Arrange
+            var unit = _fixture.Compile("if(true) { var x = true; } else if (false) { var y = false; } else { var z = false; }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var ifStatement = ExpressionAssert.AsConditional(expression);
             ExpressionAssert.Constant(ifStatement.Test, true);
             var trueExpressions = ExpressionAssert.AsBlock(ifStatement.IfTrue);
@@ -105,10 +130,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_If_WithElse_WithoutBraces()
         {
-            var unit = Compiler.Compile("if(true) var x = true; else var y = false;");
+            // Arrange
+            var unit = _fixture.Compile("if(true) var x = true; else var y = false;");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var ifStatement = ExpressionAssert.AsConditional(expression);
             ExpressionAssert.Constant(ifStatement.Test, true);
             ExpressionAssert.AsBinaryAssign(ifStatement.IfTrue);
@@ -118,10 +146,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_TernaryConditionalStatement()
         {
-            var unit = Compiler.Compile("var x = true ? true : false;");
+            // Arrange
+            var unit = _fixture.Compile("var x = true ? true : false;");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var binaryExpression = ExpressionAssert.AsBinaryAssign(expression);
             var ternaryStatement = ExpressionAssert.AsConditional(binaryExpression.Right);
             ExpressionAssert.Constant(ternaryStatement.Test, true);

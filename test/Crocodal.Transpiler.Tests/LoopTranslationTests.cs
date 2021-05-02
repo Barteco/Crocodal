@@ -1,4 +1,5 @@
 ﻿using Crocodal.Transpiler.Tests.Core;
+using Crocodal.Transpiler.Tests.Fixtures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,26 @@ using Xunit;
 
 namespace Crocodal.Transpiler.Tests
 {
-    public class LoopTranslationTests
+    public class LoopTranslationTests : IClassFixture<CompilerFixture>
     {
         private readonly StatementTranslator _translator = new StatementTranslator();
+        private readonly CompilerFixture _fixture;
+
+        public LoopTranslationTests(CompilerFixture fixture)
+        {
+            _fixture = fixture;
+        }
 
         [Fact]
         public void ShouldParse_While_WithEmptyBody()
         {
-            var unit = Compiler.Compile("while(true) { }");
+            // Arrange
+            var unit = _fixture.Compile("while(true) { }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var whileStatement = ExpressionAssert.AsWhileLoop(expression);
             ExpressionAssert.Constant(whileStatement.Condition, true);
             var loopExpressions = ExpressionAssert.AsBlock(whileStatement.Body);
@@ -27,10 +37,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_While_WithBody()
         {
-            var unit = Compiler.Compile("while(true) { var x = true; }");
+            // Arrange
+            var unit = _fixture.Compile("while(true) { var x = true; }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var whileStatement = ExpressionAssert.AsWhileLoop(expression);
             ExpressionAssert.Constant(whileStatement.Condition, true);
             var loopExpressions = ExpressionAssert.AsBlock(whileStatement.Body);
@@ -40,10 +53,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_While_WithBody_WithoutBraces()
         {
-            var unit = Compiler.Compile("while(true) var x = true;");
+            // Arrange
+            var unit = _fixture.Compile("while(true) var x = true;");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var whileStatement = ExpressionAssert.AsWhileLoop(expression);
             ExpressionAssert.Constant(whileStatement.Condition, true);
             ExpressionAssert.AsBinaryAssign(whileStatement.Body);
@@ -52,10 +68,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_DoWhile_WithEmptyBody()
         {
-            var unit = Compiler.Compile("do { } while(true);");
+            // Arrange
+            var unit = _fixture.Compile("do { } while(true);");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var doWhileStatement = ExpressionAssert.AsDoWhileLoop(expression);
             ExpressionAssert.Constant(doWhileStatement.Condition, true);
             var loopExpressions = ExpressionAssert.AsBlock(doWhileStatement.Body);
@@ -65,10 +84,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_DoWhile_WithBody()
         {
-            var unit = Compiler.Compile("do { var x = true; } while(true);");
+            // Arrange
+            var unit = _fixture.Compile("do { var x = true; } while(true);");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var doWhileStatement = ExpressionAssert.AsDoWhileLoop(expression);
             ExpressionAssert.Constant(doWhileStatement.Condition, true);
             var loopExpressions = ExpressionAssert.AsBlock(doWhileStatement.Body);
@@ -78,10 +100,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_DoWhile_WithBody_WithoutBraces()
         {
-            var unit = Compiler.Compile("do var x = true; while(true);");
+            // Arrange
+            var unit = _fixture.Compile("do var x = true; while(true);");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var doWhileStatement = ExpressionAssert.AsDoWhileLoop(expression);
             ExpressionAssert.Constant(doWhileStatement.Condition, true);
             ExpressionAssert.AsBinaryAssign(doWhileStatement.Body);
@@ -90,10 +115,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_For_WithEmptyBody()
         {
-            var unit = Compiler.Compile("for (int i = 0; i < 10; i++) { }");
+            // Arrange
+            var unit = _fixture.Compile("for (int i = 0; i < 10; i++) { }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var forStatement = ExpressionAssert.AsForLoop(expression);
             ExpressionAssert.AsBinaryAssign(forStatement.Initializer);
             ExpressionAssert.AsBinary(forStatement.Condition, ExpressionType.LessThan);
@@ -105,10 +133,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_For_WithEmptyBody_WithOuterScopeVariable()
         {
-            var unit = Compiler.Compile("int i; for (i = 0; i < 10; i++) { }");
+            // Arrange
+            var unit = _fixture.Compile("int i; for (i = 0; i < 10; i++) { }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var expressions = ExpressionAssert.AsMultiline(expression);
             var forStatement = ExpressionAssert.AsForLoop(expressions[1]);
             ExpressionAssert.AsBinaryAssign(forStatement.Initializer);
@@ -121,10 +152,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_For_WithBody()
         {
-            var unit = Compiler.Compile("for (int i = 0; i < 10; i++) { var x = true; }");
+            // Arrange
+            var unit = _fixture.Compile("for (int i = 0; i < 10; i++) { var x = true; }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var forStatement = ExpressionAssert.AsForLoop(expression);
             ExpressionAssert.AsBinaryAssign(forStatement.Initializer);
             ExpressionAssert.AsBinary(forStatement.Condition, ExpressionType.LessThan);
@@ -136,10 +170,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_For_WithBody_WithoutBraces()
         {
-            var unit = Compiler.Compile("for (int i = 0; i < 10; i++) var x = true;");
+            // Arrange
+            var unit = _fixture.Compile("for (int i = 0; i < 10; i++) var x = true;");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var forStatement = ExpressionAssert.AsForLoop(expression);
             ExpressionAssert.AsBinaryAssign(forStatement.Initializer);
             ExpressionAssert.AsBinary(forStatement.Condition, ExpressionType.LessThan);
@@ -150,10 +187,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_Foreach_WithEmptyBody()
         {
-            var unit = Compiler.Compile("foreach (int i in new List<int>()) { }");
+            // Arrange
+            var unit = _fixture.Compile("foreach (int i in new List<int>()) { }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var foreachStatement = ExpressionAssert.AsForeachLoop(expression);
             ExpressionAssert.New(foreachStatement.Collection, typeof(List<int>), Enumerable.Empty<Type>());
             ExpressionAssert.Parameter(foreachStatement.Variable, typeof(int), "i");
@@ -165,10 +205,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_Foreach_WithVar_WithGenericCollection()
         {
-            var unit = Compiler.Compile("foreach (var i in new List<int>()) { }");
+            // Arrange
+            var unit = _fixture.Compile("foreach (var i in new List<int>()) { }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var foreachStatement = ExpressionAssert.AsForeachLoop(expression);
             ExpressionAssert.New(foreachStatement.Collection, typeof(List<int>), Enumerable.Empty<Type>());
             ExpressionAssert.Parameter(foreachStatement.Variable, typeof(int), "i");
@@ -179,10 +222,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_Foreach_WithVar_WithArrayCollection()
         {
-            var unit = Compiler.Compile("foreach (var i in new int[3]) { }");
+            // Arrange
+            var unit = _fixture.Compile("foreach (var i in new int[3]) { }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var foreachStatement = ExpressionAssert.AsForeachLoop(expression);
             ExpressionAssert.AsNewArrayBounds(foreachStatement.Collection, typeof(int[]));
             ExpressionAssert.Parameter(foreachStatement.Variable, typeof(int), "i");
@@ -193,10 +239,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_Foreach_WithBody()
         {
-            var unit = Compiler.Compile("foreach (int i in new List<int>()) { var x = true; }");
+            // Arrange
+            var unit = _fixture.Compile("foreach (int i in new List<int>()) { var x = true; }");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var foreachStatement = ExpressionAssert.AsForeachLoop(expression);
             ExpressionAssert.New(foreachStatement.Collection, typeof(List<int>), Enumerable.Empty<Type>());
             ExpressionAssert.Parameter(foreachStatement.Variable, typeof(int), "i");
@@ -207,10 +256,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_Foreach_WithBody_WithoutBraces()
         {
-            var unit = Compiler.Compile("foreach (int i in new List<int>()) var x = true;");
+            // Arrange
+            var unit = _fixture.Compile("foreach (int i in new List<int>()) var x = true;");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var foreachStatement = ExpressionAssert.AsForeachLoop(expression);
             ExpressionAssert.New(foreachStatement.Collection, typeof(List<int>), Enumerable.Empty<Type>());
             ExpressionAssert.Parameter(foreachStatement.Variable, typeof(int), "i");

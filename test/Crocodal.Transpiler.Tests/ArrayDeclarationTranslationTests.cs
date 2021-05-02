@@ -1,29 +1,42 @@
 ﻿using Crocodal.Transpiler.Tests.Core;
+using Crocodal.Transpiler.Tests.Fixtures;
 using Xunit;
 
 namespace Crocodal.Transpiler.Tests
 {
-    public class ArrayDeclarationTranslationTests
+    public class ArrayDeclarationTranslationTests : IClassFixture<CompilerFixture>
     {
         private readonly StatementTranslator _translator = new StatementTranslator();
+        private readonly CompilerFixture _fixture;
+
+        public ArrayDeclarationTranslationTests(CompilerFixture fixture)
+        {
+            _fixture = fixture;
+        }
 
         [Fact]
         public void ShouldParse_ArrayDeclaration_WithExplicitType()
         {
-            var unit = Compiler.Compile("int[] x;");
+            // Arrange
+            var unit = _fixture.Compile("int[] x;");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             ExpressionAssert.Declaration(expression, typeof(int[]), "x");
         }
 
         [Fact]
         public void ShouldParse_ArrayDeclaration_WithExplicitType_WithBounds()
         {
-            var unit = Compiler.Compile("int[] x = new int[3];");
+            // Arrange
+            var unit = _fixture.Compile("int[] x = new int[3];");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var binaryExpression = ExpressionAssert.AsBinaryAssign(expression);
             ExpressionAssert.Declaration(binaryExpression.Left, typeof(int[]), "x");
             var newArray = ExpressionAssert.AsNewArrayBounds(binaryExpression.Right, typeof(int[]));
@@ -33,10 +46,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_ArrayDeclaration_WithExplicitType_WithInitializer()
         {
-            var unit = Compiler.Compile("int[] x = new int[] { 1, 2, 3 };");
+            // Arrange
+            var unit = _fixture.Compile("int[] x = new int[] { 1, 2, 3 };");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var binaryExpression = ExpressionAssert.AsBinaryAssign(expression);
             ExpressionAssert.Declaration(binaryExpression.Left, typeof(int[]), "x");
             var newArray = ExpressionAssert.AsNewArrayInit(binaryExpression.Right, typeof(int[]), 3);
@@ -46,10 +62,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_ArrayDeclaration_WithExplicitType_WithBounds_WithInitializer()
         {
-            var unit = Compiler.Compile("int[] x = new int[3] { 1, 2, 3 };");
+            // Arrange
+            var unit = _fixture.Compile("int[] x = new int[3] { 1, 2, 3 };");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var binaryExpression = ExpressionAssert.AsBinaryAssign(expression);
             ExpressionAssert.Declaration(binaryExpression.Left, typeof(int[]), "x");
             var newArray = ExpressionAssert.AsNewArrayInit(binaryExpression.Right, typeof(int[]), 3);
@@ -59,10 +78,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_ArrayDeclaration_WithExplicitType_WithArrayInitializer()
         {
-            var unit = Compiler.Compile("int[] x = { 1, 2, 3 };");
+            // Arrange
+            var unit = _fixture.Compile("int[] x = { 1, 2, 3 };");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var binaryExpression = ExpressionAssert.AsBinaryAssign(expression);
             ExpressionAssert.Declaration(binaryExpression.Left, typeof(int[]), "x");
             var newArray = ExpressionAssert.AsNewArrayInit(binaryExpression.Right, typeof(int[]), 3);

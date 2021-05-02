@@ -1,12 +1,19 @@
 ﻿using Crocodal.Transpiler.Tests.Core;
+using Crocodal.Transpiler.Tests.Fixtures;
 using System;
 using Xunit;
 
 namespace Crocodal.Transpiler.Tests
 {
-    public class LiteralTranslationTests
+    public class LiteralTranslationTests : IClassFixture<CompilerFixture>
     {
         private readonly StatementTranslator _translator = new StatementTranslator();
+        private readonly CompilerFixture _fixture;
+
+        public LiteralTranslationTests(CompilerFixture fixture)
+        {
+            _fixture = fixture;
+        }
 
         [Theory]
         [InlineData("true", true)]
@@ -18,10 +25,13 @@ namespace Crocodal.Transpiler.Tests
         [InlineData("\"test\"", "test")]
         public void ShouldParse_LiteralExpression(string script, object expectedLiteral)
         {
-            var unit = Compiler.Compile(script);
+            // Arrange
+            var unit = _fixture.Compile(script);
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             ExpressionAssert.Constant(expression, expectedLiteral);
         }
 
@@ -30,10 +40,13 @@ namespace Crocodal.Transpiler.Tests
         public void ShouldParse_DecimalLiteralExpression(string script, object expectedLiteral)
         {
             var expectedDecimal = Convert.ToDecimal(expectedLiteral);
-            var unit = Compiler.Compile(script);
+            // Arrange
+            var unit = _fixture.Compile(script);
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             ExpressionAssert.Constant(expression, expectedDecimal);
         }
     }

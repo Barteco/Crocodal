@@ -1,13 +1,20 @@
 using Crocodal.Transpiler.Tests.Core;
+using Crocodal.Transpiler.Tests.Fixtures;
 using System;
 using System.Collections.Generic;
 using Xunit;
 
 namespace Crocodal.Transpiler.Tests
 {
-    public class TypeTranslationTests
+    public class TypeTranslationTests : IClassFixture<CompilerFixture>
     {
         private readonly StatementTranslator _translator = new StatementTranslator();
+        private readonly CompilerFixture _fixture;
+
+        public TypeTranslationTests(CompilerFixture fixture)
+        {
+            _fixture = fixture;
+        }
 
         public static IEnumerable<object[]> TypeDeclarationData => new List<object[]>
         {
@@ -55,10 +62,13 @@ namespace Crocodal.Transpiler.Tests
         [MemberData(nameof(ArrayTypeDeclarationData))]
         public void ShouldParse_Type(string script, Type expectedType, string expectedVarName)
         {
-            var unit = Compiler.Compile(script);
+            // Arrange
+            var unit = _fixture.Compile(script);
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             ExpressionAssert.Declaration(expression, expectedType, expectedVarName);
         }
     }

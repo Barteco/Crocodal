@@ -1,23 +1,31 @@
 ﻿using Crocodal.Transpiler.Tests.Core;
+using Crocodal.Transpiler.Tests.Fixtures;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace Crocodal.Transpiler.Tests
 {
-
-    public class MemberAccessTranslationTests
+    public class MemberAccessTranslationTests : IClassFixture<CompilerFixture>
     {
         private readonly StatementTranslator _translator = new StatementTranslator();
+        private readonly CompilerFixture _fixture;
+
+        public MemberAccessTranslationTests(CompilerFixture fixture)
+        {
+            _fixture = fixture;
+        }
 
         [Fact]
         public void ShouldParse_InstancePropertyAccess()
         {
-            var unit = Compiler.Compile("DateTime x; var y = x.Ticks;");
+            // Arrange
+            var unit = _fixture.Compile("DateTime x; var y = x.Ticks;");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var expressions = ExpressionAssert.AsMultiline(expression);
             var binaryExpression = ExpressionAssert.AsBinaryAssign(expressions[1]);
             var member = ExpressionAssert.AsMember(binaryExpression.Right);
@@ -29,10 +37,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_ChainedInstancePropertyAccess()
         {
-            var unit = Compiler.Compile("DateTime x; var y = x.Date.Ticks;");
+            // Arrange
+            var unit = _fixture.Compile("DateTime x; var y = x.Date.Ticks;");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var expressions = ExpressionAssert.AsMultiline(expression);
             var binaryExpression = ExpressionAssert.AsBinaryAssign(expressions[1]);
             var member = ExpressionAssert.AsMember(binaryExpression.Right);
@@ -46,10 +57,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_StaticPropertyAccess()
         {
-            var unit = Compiler.Compile("var x = DateTime.Now;");
+            // Arrange
+            var unit = _fixture.Compile("var x = DateTime.Now;");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var binaryExpression = ExpressionAssert.AsBinaryAssign(expression);
             var member = ExpressionAssert.AsMember(binaryExpression.Right);
             Assert.Null(member.Expression);
@@ -60,10 +74,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_ArrayAccess()
         {
-            var unit = Compiler.Compile("var x = new int[3]; var y = x[0]");
+            // Arrange
+            var unit = _fixture.Compile("var x = new int[3]; var y = x[0]");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var expressions = ExpressionAssert.AsMultiline(expression);
             var binaryExpression = ExpressionAssert.AsBinaryAssign(expressions[1]);
             var indexer = ExpressionAssert.AsIndexer(binaryExpression.Right);
@@ -75,10 +92,13 @@ namespace Crocodal.Transpiler.Tests
         [Fact]
         public void ShouldParse_IndexerAccess()
         {
-            var unit = Compiler.Compile(@"var x = new Dictionary<string, string>(); var y = x[""key""]");
+            // Arrange
+            var unit = _fixture.Compile(@"var x = new Dictionary<string, string>(); var y = x[""key""]");
 
+            // Act
             var expression = _translator.Translate(unit);
 
+            // Assert
             var expressions = ExpressionAssert.AsMultiline(expression);
             var binaryExpression = ExpressionAssert.AsBinaryAssign(expressions[1]);
             var indexer = ExpressionAssert.AsIndexer(binaryExpression.Right);
