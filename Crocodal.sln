@@ -35,6 +35,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crocodal.Samples", "samples
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crocodal.Abstractions", "src\Crocodal.Abstractions\Crocodal.Abstractions.csproj", "{202CE179-9740-4CA4-8D22-22E78401F0BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crocodal.Transpiler", "src\Crocodal.Transpiler\Crocodal.Transpiler.csproj", "{4360CA45-C98E-46A3-96E8-5E81AF6788F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crocodal.Transpiler.Tests", "test\Crocodal.Transpiler.Tests\Crocodal.Transpiler.Tests.csproj", "{8601E920-F04C-4B49-9BD1-8025F17EA905}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,14 @@ Global
 		{202CE179-9740-4CA4-8D22-22E78401F0BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{202CE179-9740-4CA4-8D22-22E78401F0BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{202CE179-9740-4CA4-8D22-22E78401F0BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4360CA45-C98E-46A3-96E8-5E81AF6788F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4360CA45-C98E-46A3-96E8-5E81AF6788F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4360CA45-C98E-46A3-96E8-5E81AF6788F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4360CA45-C98E-46A3-96E8-5E81AF6788F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8601E920-F04C-4B49-9BD1-8025F17EA905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8601E920-F04C-4B49-9BD1-8025F17EA905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8601E920-F04C-4B49-9BD1-8025F17EA905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8601E920-F04C-4B49-9BD1-8025F17EA905}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +80,8 @@ Global
 		{81454E77-85FA-4AF6-BAB2-28663443872E} = {8E81F6AE-14BB-43CA-8313-5B8CD7E56BBC}
 		{A091C658-8F01-4D04-AF4D-6BDA5A028950} = {9DD93910-297C-42F5-B97B-2169CB4B3C26}
 		{202CE179-9740-4CA4-8D22-22E78401F0BD} = {188C9595-310F-435E-AD9A-311D5268B05F}
+		{4360CA45-C98E-46A3-96E8-5E81AF6788F7} = {188C9595-310F-435E-AD9A-311D5268B05F}
+		{8601E920-F04C-4B49-9BD1-8025F17EA905} = {8E81F6AE-14BB-43CA-8313-5B8CD7E56BBC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2DAA8A6F-63F9-4763-A4C1-8FBF1603C0BD}

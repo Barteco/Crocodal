@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Crocodal\Crocodal.csproj" />
+    <ProjectReference Include="..\..\src\Crocodal.Transpiler\Crocodal.Transpiler.csproj" />
   </ItemGroup>
 
 </Project>
