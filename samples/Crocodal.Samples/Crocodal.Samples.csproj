@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Crocodal.Abstractions\Crocodal.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Crocodal\Crocodal.csproj" />
   </ItemGroup>
 
 </Project>

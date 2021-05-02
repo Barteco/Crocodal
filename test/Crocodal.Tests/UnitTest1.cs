@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 
 namespace Crocodal.Tests
@@ -8,7 +7,6 @@ namespace Crocodal.Tests
         [Fact]
         public void Test1()
         {
-
         }
     }
 }
