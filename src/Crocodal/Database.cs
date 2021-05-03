@@ -1,6 +1,5 @@
 ﻿using Crocodal.Internal.Utilities;
 using Crocodal.Statements;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Crocodal

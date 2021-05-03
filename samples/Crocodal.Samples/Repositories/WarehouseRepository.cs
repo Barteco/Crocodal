@@ -1,11 +1,8 @@
-﻿using Crocodal.Samples.Project;
+﻿using Crocodal.Samples.Dtos;
+using Crocodal.Samples.Project;
 using Crocodal.Samples.Project.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Crocodal.Samples.Dtos;
 
 namespace Crocodal.Samples.Repositories
 {

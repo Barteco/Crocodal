@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Crocodal.Statements
+﻿namespace Crocodal.Statements
 {
     public class RawSqlStatement<TResult> : AbstractStatement<TResult>
     {

@@ -1,5 +1,4 @@
 ﻿using Crocodal.Statements;
-using System.Collections.Generic;
 
 namespace Crocodal
 {
