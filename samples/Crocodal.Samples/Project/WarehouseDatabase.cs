@@ -16,7 +16,7 @@ namespace Crocodal.Samples.Project
         public View<AvailableProduct> AvailableProducts { get; }
 
         [StoredProcedure("dbo.spSearchProducts")]
-        public IExecutableStatement<List<ProductDto>> SearchProducts(string term)
+        public StoredProcedure<List<ProductDto>> SearchProducts(string term)
         {
             return new StoredProcedure<List<ProductDto>>(this, "dbo.spSearchProducts", new
             {
@@ -25,9 +25,9 @@ namespace Crocodal.Samples.Project
         }
 
         [Function("dbo.fnCalculatePrice")]
-        public decimal CalculatePrice(decimal price)
+        public Function<decimal> CalculatePrice(decimal price)
         {
-            return new Function<decimal>("dbo.fnCalculatePrice", new
+            return new Function<decimal>(this, "dbo.fnCalculatePrice", new
             {
                 price
             });
