@@ -1,4 +1,6 @@
-﻿namespace Crocodal.Samples.Project.Configuration.Functions
+﻿using Crocodal.Attributes;
+
+namespace Crocodal.Samples.Project.Configuration.Functions
 {
     class CalculatePriceFunction : IFunction
     {

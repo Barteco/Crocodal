@@ -1,4 +1,5 @@
-﻿using Crocodal.Samples.Project.Entities;
+﻿using Crocodal.Attributes;
+using Crocodal.Samples.Project.Entities;
 using System.Collections.Generic;
 
 namespace Crocodal.Samples.Project.Configuration.Views

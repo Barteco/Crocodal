@@ -1,4 +1,5 @@
-﻿using Crocodal.Samples.Dtos;
+﻿using Crocodal.Attributes;
+using Crocodal.Samples.Dtos;
 using System.Collections.Generic;
 
 namespace Crocodal.Samples.Project.Configuration.Procedures
