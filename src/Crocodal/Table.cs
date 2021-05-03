@@ -1,11 +1,7 @@
-﻿using Crocodal.Statements;
-
-namespace Crocodal
+﻿namespace Crocodal
 {
-    public class Table<TEntity> : QueryStatement<TEntity>, ITableStatement<TEntity>
+    public class Table<TEntity> : IQueryStatement<TEntity>, ITableStatement<TEntity>
     {
-        public Table(IDatabase database) : base(database)
-        {
-        }
+        public IDatabase Database { get; }
     }
 }

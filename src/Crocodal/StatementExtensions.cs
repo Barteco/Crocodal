@@ -42,9 +42,6 @@ namespace Crocodal
             throw new NotImplementedException();
         }
 
-
-
-
         public static IJoinableQueryStatement<TEntity> Join<TEntity, TReference>(this IJoinableStatement<TEntity> statement, Expression<Func<TEntity, TReference>> expression)
         {
             throw new NotImplementedException();

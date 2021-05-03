@@ -2,10 +2,10 @@
 {
     public interface IExecutableStatement
     {
+        public IDatabase Database { get; }
     }
 
     public interface IExecutableStatement<TEntity> : IExecutableStatement
     {
-        public IDatabase Database { get; }
     }
 }

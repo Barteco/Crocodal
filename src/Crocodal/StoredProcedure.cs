@@ -1,16 +1,16 @@
-﻿using Crocodal.Statements;
+﻿using Crocodal.Internal.Statements;
 
 namespace Crocodal
 {
-    public class StoredProcedure<TResult> : ExecuteStoredProcedureStatement<TResult>
+    public class StoredProcedure<TResult> : IExecutableStatement<TResult>, IWrappedStatement<TResult>
     {
-        public string Name { get; }
-        public object Paramters { get; }
+        public IDatabase Database { get; }
+        public IExecutableStatement<TResult> Statement { get; }
 
-        public StoredProcedure(IDatabase database, string name, object paramters) : base(database)
+        public StoredProcedure(IDatabase database, string name, object paramters)
         {
-            Name = name;
-            Paramters = paramters;
+            Database = database;
+            Statement = new ExecuteStoredProcedureStatement<TResult>(database, name, paramters);
         }
     }
 }

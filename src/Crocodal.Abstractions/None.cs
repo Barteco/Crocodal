@@ -1,6 +1,6 @@
 ﻿namespace Crocodal
 {
-    public class None 
+    public class None
     {
     }
 }

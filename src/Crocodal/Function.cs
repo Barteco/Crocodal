@@ -1,17 +1,17 @@
-﻿using Crocodal.Statements;
+﻿using Crocodal.Internal.Statements;
 using System;
 
 namespace Crocodal
 {
-    public class Function<TResult> : CallFunctionStatement<TResult>, IFunctionStatement<TResult>
+    public class Function<TResult> : IExecutableStatement<TResult>, IWrappedStatement<TResult>
     {
-        public string Name { get; }
-        public object Paramters { get; }
+        public IDatabase Database { get; }
+        public IExecutableStatement<TResult> Statement { get; }
 
-        public Function(IDatabase database, string name, object paramters) : base(database)
+        public Function(IDatabase database, string name, object paramters)
         {
-            Name = name;
-            Paramters = paramters;
+            Database = database;
+            Statement = new CallFunctionStatement<TResult>(database, name, paramters);
         }
 
         public static implicit operator TResult(Function<TResult> self)
