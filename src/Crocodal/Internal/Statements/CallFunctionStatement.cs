@@ -1,14 +1,12 @@
 ﻿namespace Crocodal.Internal.Statements
 {
-    internal class CallFunctionStatement<TResult> : IFunctionStatement<TResult>
+    internal class CallFunctionStatement<TResult> : DatabaseStatement<TResult>, IFunctionStatement<TResult>
     {
-        public IDatabase Database { get; }
         public string Name { get; }
         public object Paramters { get; }
 
-        public CallFunctionStatement(IDatabase database, string name, object paramters)
+        public CallFunctionStatement(Database database, string name, object paramters) : base(database)
         {
-            Database = database;
             Name = name;
             Paramters = paramters;
         }

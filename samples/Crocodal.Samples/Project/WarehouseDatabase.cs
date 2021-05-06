@@ -12,8 +12,8 @@ namespace Crocodal.Samples.Project
     class WarehouseDatabase : Database
     {
         // This should code-generated
-        public Table<Product> Products { get; }
-        public View<AvailableProduct> AvailableProducts { get; }
+        public Table<Product> Products => new(this);
+        public View<AvailableProduct> AvailableProducts => new(this);
 
         [StoredProcedure("dbo.spSearchProducts")]
         public StoredProcedure<List<ProductDto>> SearchProducts(string term)

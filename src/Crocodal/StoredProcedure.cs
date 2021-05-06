@@ -1,16 +1,25 @@
 ﻿using Crocodal.Internal.Statements;
+using System;
 
 namespace Crocodal
 {
-    public class StoredProcedure<TResult> : IExecutableStatement<TResult>, IWrappedStatement<TResult>
+    public class StoredProcedure<TResult> : DatabaseStatement<TResult>
     {
-        public IDatabase Database { get; }
-        public IExecutableStatement<TResult> Statement { get; }
+        private readonly ExecuteStoredProcedureStatement<TResult> _statement;
 
-        public StoredProcedure(IDatabase database, string name, object paramters)
+        public StoredProcedure(Database database, string name, object paramters) : base(database)
         {
-            Database = database;
-            Statement = new ExecuteStoredProcedureStatement<TResult>(database, name, paramters);
+            _statement = new ExecuteStoredProcedureStatement<TResult>(database, name, paramters);
+        }
+
+        public override IExecutableStatement<TResult> Unwrap()
+        {
+            return _statement;
+        }
+
+        public static implicit operator TResult(StoredProcedure<TResult> _)
+        {
+            throw new InvalidCastException("Implicit cast to stored procedure result cannot be used directly in code. It's intended only as a syntax enhancement for stored procedure generation. To call this procedure, use Execute()/ExecuteAsync() method");
         }
     }
 }

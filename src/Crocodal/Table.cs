@@ -1,7 +1,15 @@
-﻿namespace Crocodal
+﻿using Crocodal.Internal.Core;
+
+namespace Crocodal
 {
-    public class Table<TEntity> : IQueryStatement<TEntity>, ITableStatement<TEntity>
+    public class Table<TEntity> : ITableStatement<TEntity>
     {
-        public IDatabase Database { get; }
+        public IStatementBuilder Builder { get; }
+
+        public Table(IDatabase database)
+        {
+            Builder = new QueryBuilder(database);
+            Builder.From<TEntity>();
+        }
     }
 }

@@ -1,7 +1,9 @@
 ﻿namespace Crocodal.Internal.Statements
 {
-    internal class AddTableColumnStatement : IExecutableStatement
+    internal class AddTableColumnStatement : DatabaseStatement<None>
     {
-        public IDatabase Database { get; }
+        public AddTableColumnStatement(IDatabase database) : base(database)
+        {
+        }
     }
 }

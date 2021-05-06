@@ -1,5 +1,15 @@
 ﻿namespace Crocodal
 {
+    public interface IQueryStatement<TResult>
+        : IExecutableStatement<TResult>
+    {
+    }
+
+    public interface IQueryableStatement<TEntity>
+        : IBuildableStatement
+    {
+    }
+
     public interface ISelectableStatement<TEntity>
         : IQueryableStatement<TEntity>
     {

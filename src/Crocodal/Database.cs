@@ -1,5 +1,5 @@
-﻿using Crocodal.Internal.Utilities;
-using Crocodal.Internal.Statements;
+﻿using Crocodal.Internal.Statements;
+using Crocodal.Internal.Utilities;
 using System.Threading.Tasks;
 
 namespace Crocodal
@@ -126,7 +126,7 @@ namespace Crocodal
         public string ToSqlString<TResult>(IExecutableStatement<TResult> statement)
         {
             return Provider.ToSqlString(statement);
-        } 
+        }
 
         #endregion
     }

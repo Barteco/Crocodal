@@ -1,7 +1,9 @@
 ﻿namespace Crocodal.Internal.Statements
 {
-    internal class DeleteStatement : IDeleteStatement
+    internal class DeleteStatement : DatabaseStatement<None>, IDeleteStatement
     {
-        public IDatabase Database { get; }
+        public DeleteStatement(IDatabase database) : base(database)
+        {
+        }
     }
 }

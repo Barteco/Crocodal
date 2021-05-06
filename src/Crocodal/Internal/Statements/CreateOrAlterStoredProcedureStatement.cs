@@ -1,7 +1,9 @@
 ﻿namespace Crocodal.Internal.Statements
 {
-    internal class CreateOrAlterStoredProcedureStatement : IExecutableStatement
+    internal class CreateOrAlterStoredProcedureStatement : DatabaseStatement<None>
     {
-        public IDatabase Database { get; }
+        public CreateOrAlterStoredProcedureStatement(IDatabase database) : base(database)
+        {
+        }
     }
 }

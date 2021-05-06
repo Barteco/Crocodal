@@ -1,7 +1,9 @@
 ﻿namespace Crocodal.Internal.Statements
 {
-    internal class UpdateStatement : IUpdateStatement
+    internal class UpdateStatement : DatabaseStatement<None>, IUpdateStatement
     {
-        public IDatabase Database { get; set; }
+        public UpdateStatement(IDatabase database) : base(database)
+        {
+        }
     }
 }

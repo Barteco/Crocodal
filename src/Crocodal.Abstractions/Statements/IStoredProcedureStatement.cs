@@ -1,7 +1,6 @@
 ﻿namespace Crocodal
 {
-    public interface IStoredProcedureStatement<TResult>
-        : IExecutableStatement<TResult>
+    public interface IStoredProcedureStatement<TResult> : IExecutableStatement<TResult>
     {
     }
 }

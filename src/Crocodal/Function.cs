@@ -3,20 +3,23 @@ using System;
 
 namespace Crocodal
 {
-    public class Function<TResult> : IExecutableStatement<TResult>, IWrappedStatement<TResult>
+    public class Function<TResult> : DatabaseStatement<TResult>
     {
-        public IDatabase Database { get; }
-        public IExecutableStatement<TResult> Statement { get; }
+        private readonly CallFunctionStatement<TResult> _statement;
 
-        public Function(IDatabase database, string name, object paramters)
+        public Function(Database database, string name, object paramters) : base(database)
         {
-            Database = database;
-            Statement = new CallFunctionStatement<TResult>(database, name, paramters);
+            _statement = new CallFunctionStatement<TResult>(database, name, paramters);
         }
 
-        public static implicit operator TResult(Function<TResult> self)
+        public override IExecutableStatement<TResult> Unwrap()
         {
-            throw new InvalidCastException("Implicit cast to user-defined function cannot be used directly in code. It's intended only as a syntax enhancement for stored procedure generation. To call this function, use Execute()/ExecuteAsync() method");
+            return _statement;
+        }
+
+        public static implicit operator TResult(Function<TResult> _)
+        {
+            throw new InvalidCastException("Implicit cast to user-defined function result cannot be used directly in code. It's intended only as a syntax enhancement for stored procedure generation. To call this function, use Execute()/ExecuteAsync() method");
         }
     }
 }

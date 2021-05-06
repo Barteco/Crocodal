@@ -1,7 +1,9 @@
 ﻿namespace Crocodal.Internal.Statements
 {
-    internal class QueryStatement<TResult> : IQueryStatement<TResult>
+    internal class QueryStatement<TResult> : DatabaseStatement<None>, IQueryStatement<TResult>
     {
-        public IDatabase Database { get; }
+        public QueryStatement(IDatabase database) : base(database)
+        {
+        }
     }
 }

@@ -1,16 +1,14 @@
 ﻿namespace Crocodal.Internal.Statements
 {
-    internal class RawSqlStatement<TResult> : IExecutableStatement<TResult>
+    internal class RawSqlStatement<TResult> : DatabaseStatement<TResult>
     {
-        public IDatabase Database { get; }
         public string Sql { get; }
         public object Parameters { get; }
 
-        public RawSqlStatement(IDatabase database, string sql, object parameters)
+        public RawSqlStatement(Database database, string sql, object parameters) : base(database)
         {
             Sql = sql;
             Parameters = parameters;
-            Database = database;
         }
     }
 }

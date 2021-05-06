@@ -22,10 +22,7 @@ namespace Crocodal.Samples.Repositories
             IInsertStatement insert = _database.Products.Insert(new Product(), new Product());
             IUpdateStatement update = _database.Products.Where(e => e.IsAvailable).Update(e => new Product { IsAvailable = false });
 
-            List<ProductDto> searchedProducts = await _database.SearchProducts("name").ExecuteAsync();
-
             var (queryResult, deleteAffected, updateAffected, insertAffected) = _database.Execute(query, delete, update, insert);
-
             (queryResult, deleteAffected, updateAffected, insertAffected) = await _database.ExecuteAsync(query, delete, update, insert);
 
             string querySql = query.ToSqlString();
@@ -35,6 +32,18 @@ namespace Crocodal.Samples.Repositories
 
             queryResult = _database.ExecuteSql<List<string>>(querySql, new { x = 1 });
             queryResult = await _database.ExecuteSqlAsync<List<string>>(querySql, new { x = 1 });
+
+            StoredProcedure<List<ProductDto>> searchedProductsProcedure = _database.SearchProducts("name");
+            var searchedProducts = searchedProductsProcedure.Execute();
+            searchedProducts = await searchedProductsProcedure.ExecuteAsync();
+            searchedProducts = _database.Execute(searchedProductsProcedure);
+            searchedProducts = await _database.ExecuteAsync(searchedProductsProcedure);
+
+            Function<decimal> priceFunction = _database.CalculatePrice(123);
+            var price = priceFunction.Execute();
+            price = await priceFunction.ExecuteAsync();
+            price = _database.Execute(priceFunction);
+            price = await _database.ExecuteAsync(priceFunction);
         }
     }
 }
