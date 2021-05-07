@@ -1,9 +1,10 @@
 ﻿using Crocodal.Internal.Statements;
+using Crocodal.Internal.Unwrapping;
 using System;
 
 namespace Crocodal
 {
-    public class StoredProcedure<TResult> : DatabaseStatement<TResult>
+    public class StoredProcedure<TResult> : DatabaseStatement<TResult>, IUnwrappable
     {
         private readonly ExecuteStoredProcedureStatement<TResult> _statement;
 
@@ -12,7 +13,7 @@ namespace Crocodal
             _statement = new ExecuteStoredProcedureStatement<TResult>(database, name, paramters);
         }
 
-        public override IExecutableStatement<TResult> Unwrap()
+        IExecutableStatement IUnwrappable.Unwrap()
         {
             return _statement;
         }
