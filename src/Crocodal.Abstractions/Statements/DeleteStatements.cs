@@ -7,4 +7,8 @@
     public interface IDeletableStatement<TEntity> : IBuildableStatement
     {
     }
+
+    public interface IBatchDeletableStatement<TEntity> : IBuildableStatement
+    {
+    }
 }

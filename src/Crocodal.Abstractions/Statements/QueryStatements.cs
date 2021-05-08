@@ -42,8 +42,8 @@
         ITakeableStatement<TEntity>,
         ISelectableStatement<TEntity>,
         IQueryableStatement<TEntity>,
-        IUpdatableStatement<TEntity>,
-        IDeletableStatement<TEntity>
+        IBatchUpdatableStatement<TEntity>,
+        IBatchDeletableStatement<TEntity>
     {
     }
 

@@ -19,7 +19,7 @@ namespace Crocodal.Samples.Project.Configuration.Views
                 {
                     Id = e.Id,
                     Name = e.Name,
-                    NetPrice = e.NetPrice
+                    NetPrice = e.NetPrice,
                 })
                 .ExecuteQuery();
         }

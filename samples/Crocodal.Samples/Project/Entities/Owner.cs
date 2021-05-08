@@ -8,5 +8,6 @@ namespace Crocodal.Samples.Project.Entities
         public int Name { get; set; }
 
         public List<Product> Products { get; set; }
+        public List<ArchivedProduct> ArchivedProducts { get; set; }
     }
 }

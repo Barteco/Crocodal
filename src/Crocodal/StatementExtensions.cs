@@ -26,18 +26,38 @@ namespace Crocodal
         {
             throw new NotImplementedException();
         }
-
+        
         public static IInsertStatement Insert<TEntity>(this IInsertableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
         {
             throw new NotImplementedException();
         }
 
-        public static IUpdateStatement Update<TEntity>(this IUpdatableStatement<TEntity> statement, Expression<Func<TEntity, TEntity>> expression)
+        public static IInsertStatement Insert<TEntity>(this IInsertableStatement<TEntity> statement, IQueryStatement<TEntity> query)
         {
             throw new NotImplementedException();
         }
 
-        public static IDeleteStatement Delete<TEntity>(this IDeletableStatement<TEntity> statement)
+        public static IInsertStatement Insert<TEntity>(this IInsertableStatement<TEntity> statement, IQueryStatement<List<TEntity>> query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IUpdateStatement Update<TEntity>(this IBatchUpdatableStatement<TEntity> statement, Expression<Func<TEntity, TEntity>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IUpdateStatement Update<TEntity>(this IUpdatableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IDeleteStatement Delete<TEntity>(this IBatchDeletableStatement<TEntity> statement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IDeleteStatement Delete<TEntity>(this IDeletableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
         {
             throw new NotImplementedException();
         }
@@ -122,6 +142,26 @@ namespace Crocodal
             return await statement.Exists().ExecuteAsync().ConfigureAwait(false);
         }
 
+        public static int ExecuteInsert<TDatabase, TEntity>(this IInsertableStatement<TEntity> statement, IQueryStatement<TEntity> query) 
+        {
+            return statement.Insert(query).Execute();
+        }
+
+        public static async Task<int> ExecuteInsertAsync<TEntity>(this IInsertableStatement<TEntity> statement, IQueryStatement<TEntity> query)
+        {
+            return await statement.Insert(query).ExecuteAsync().ConfigureAwait(false);
+        }
+
+        public static int ExecuteInsert<TEntity>(this IInsertableStatement<TEntity> statement, IQueryStatement<List<TEntity>> query)
+        {
+            return statement.Insert(query).Execute();
+        }
+
+        public static async Task<int> ExecuteInsertAsync<TEntity>(this IInsertableStatement<TEntity> statement, IQueryStatement<List<TEntity>> query)
+        {
+            return await statement.Insert(query).ExecuteAsync().ConfigureAwait(false);
+        }
+
         public static int ExecuteInsert<TEntity>(this IInsertableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
         {
             return statement.Insert(entity, entities).Execute();
@@ -132,24 +172,44 @@ namespace Crocodal
             return await statement.Insert(entity, entities).ExecuteAsync().ConfigureAwait(false);
         }
 
-        public static int ExecuteUpdate<TEntity>(this IUpdatableStatement<TEntity> statement, Expression<Func<TEntity, TEntity>> expression)
+        public static int ExecuteUpdate<TEntity>(this IBatchUpdatableStatement<TEntity> statement, Expression<Func<TEntity, TEntity>> expression)
         {
             return statement.Update(expression).Execute();
         }
 
-        public static async Task<int> ExecuteUpdateAsync<TEntity>(this IUpdatableStatement<TEntity> statement, Expression<Func<TEntity, TEntity>> expression)
+        public static async Task<int> ExecuteUpdateAsync<TEntity>(this IBatchUpdatableStatement<TEntity> statement, Expression<Func<TEntity, TEntity>> expression)
         {
             return await statement.Update(expression).ExecuteAsync().ConfigureAwait(false);
         }
 
-        public static int ExecuteDelete<TEntity>(this IDeletableStatement<TEntity> statement)
+        public static int ExecuteUpdate<TEntity>(this IUpdatableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
+        {
+            return statement.Update(entity, entities).Execute();
+        }
+
+        public static async Task<int> ExecuteUpdateAsync<TEntity>(this IUpdatableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
+        {
+            return await statement.Update(entity, entities).ExecuteAsync().ConfigureAwait(false);
+        }
+
+        public static int ExecuteDelete<TEntity>(this IBatchDeletableStatement<TEntity> statement)
         {
             return statement.Delete().Execute();
         }
 
-        public static async Task<int> ExecuteDeleteAsync<TEntity>(this IDeletableStatement<TEntity> statement)
+        public static async Task<int> ExecuteDeleteAsync<TEntity>(this IBatchDeletableStatement<TEntity> statement)
         {
             return await statement.Delete().ExecuteAsync().ConfigureAwait(false);
+        }
+
+        public static int ExecuteDelete<TEntity>(this IDeletableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
+        {
+            return statement.Delete(entity, entities).Execute();
+        }
+
+        public static async Task<int> ExecuteDeleteAsync<TEntity>(this IDeletableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
+        {
+            return await statement.Delete(entity, entities).ExecuteAsync().ConfigureAwait(false);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Crocodal.Samples.Project
     {
         // This should code-generated
         public Table<Product> Products => new(this);
+        public Table<Product> ArchivedProducts => new(this);
         public View<AvailableProduct> AvailableProducts => new(this);
 
         [StoredProcedure("dbo.spSearchProducts")]
@@ -39,6 +40,7 @@ namespace Crocodal.Samples.Project
 
             // This should be auto-discovered
             builder.Configure(new ProductTable());
+            builder.Configure(new ArchivedProductTable());
             builder.Configure(new AvailableProductView());
             builder.Configure(new SearchProductsProcedure());
             builder.Configure(new CalculatePriceFunction());

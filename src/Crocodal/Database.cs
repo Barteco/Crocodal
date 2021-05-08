@@ -13,7 +13,7 @@ namespace Crocodal
             // auto-discover configuration from assembly
         }
 
-        #region Dispath to provider
+        #region Execute(Async) methods
 
         public TResult Execute<TResult>(IExecutableStatement<TResult> statement)
         {
@@ -111,6 +111,10 @@ namespace Crocodal
                 .Map<TResult1, TResult2, TResult3, TResult4, TResult5, TResult6, TResult7, TResult8>();
         }
 
+        #endregion
+
+        #region ExecuteSql(Async) methods
+
         public TResult ExecuteSql<TResult>(string sql, object parameters)
         {
             return Provider.Execute(new RawSqlStatement<TResult>(this, sql, parameters))
@@ -122,6 +126,39 @@ namespace Crocodal
             return (await Provider.ExecuteAsync(new RawSqlStatement<TResult>(this, sql, parameters)).ConfigureAwait(false))
                 .Map<TResult>();
         }
+
+        #endregion
+
+        #region Query/Insert/Update/Delete
+
+        public ITableStatement<TEntity> QueryTable<TEntity>()
+        {
+            return new Table<TEntity>(this);
+        }
+
+        public IViewStatement<TEntity> QueryView<TEntity>()
+        {
+            return new View<TEntity>(this);
+        }
+
+        public IInsertStatement Insert(object entity, params object[] entities)
+        {
+            return new InsertStatement(this, entity, entities);
+        }
+
+        public IUpdateStatement Update(object entity, params object[] entities)
+        {
+            return new UpdateStatement(this, entity, entities);
+        }
+
+        public IDeleteStatement Delete(object entity, params object[] entities)
+        {
+            return new DeleteStatement(this, entity, entities);
+        }
+
+        #endregion
+
+        #region Diagnostics
 
         public string ToSqlString<TResult>(IExecutableStatement<TResult> statement)
         {

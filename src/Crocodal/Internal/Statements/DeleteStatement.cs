@@ -5,5 +5,9 @@
         public DeleteStatement(IDatabase database) : base(database)
         {
         }
+
+        public DeleteStatement(IDatabase database, params object[] entities) : base(database)
+        {
+        }
     }
 }

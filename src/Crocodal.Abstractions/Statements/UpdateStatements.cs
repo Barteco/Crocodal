@@ -7,4 +7,8 @@
     public interface IUpdatableStatement<TEntity> : IBuildableStatement
     {
     }
+
+    public interface IBatchUpdatableStatement<TEntity> : IBuildableStatement
+    {
+    }
 }
