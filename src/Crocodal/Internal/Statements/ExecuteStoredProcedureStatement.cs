@@ -1,6 +1,6 @@
 ﻿namespace Crocodal.Internal.Statements
 {
-    internal class ExecuteStoredProcedureStatement<TResult> : DatabaseStatement<TResult>, IStoredProcedureStatement<TResult>
+    internal class ExecuteStoredProcedureStatement<TResult> : DatabaseStatement<TResult>
     {
         public string Name { get; }
         public object Paramters { get; }

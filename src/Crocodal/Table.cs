@@ -1,15 +1,15 @@
-﻿using Crocodal.Internal.Core;
-
-namespace Crocodal
+﻿namespace Crocodal
 {
-    public class Table<TEntity> : ITableStatement<TEntity>
+    public class Table<TDatabase, TEntity> : Query<TDatabase, TEntity>,
+        IJoinableTableStatement<TEntity>,
+        IInsertableStatement<TEntity>,
+        IInsertableStatement<TDatabase, TEntity>,
+        IUpdatableStatement<TEntity>,
+        IDeletableStatement<TEntity>
+        where TDatabase : IDatabase
     {
-        public IStatementBuilder Builder { get; }
-
-        public Table(IDatabase database)
+        public Table(TDatabase database) : base(database)
         {
-            Builder = new QueryBuilder(database);
-            Builder.From<TEntity>();
         }
     }
 }

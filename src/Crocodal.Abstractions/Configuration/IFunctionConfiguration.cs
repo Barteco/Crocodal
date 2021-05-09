@@ -1,6 +1,6 @@
 ﻿namespace Crocodal
 {
-    public interface IFunction
+    public interface IFunctionConfiguration
     {
         void Configure(IFunctionBuilder builder);
     }

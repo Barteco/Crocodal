@@ -1,6 +1,6 @@
 ﻿namespace Crocodal
 {
-    public interface IView<TView>
+    public interface IViewConfiguration<TView>
     {
         void Configure(IViewBuilder<TView> builder);
     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Crocodal.Samples.Project.Configuration.Views
 {
-    class AvailableProductView : IView<AvailableProduct>
+    class AvailableProductViewConfiguration : IViewConfiguration<AvailableProduct>
     {
         public void Configure(IViewBuilder<AvailableProduct> builder)
         {

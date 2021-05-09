@@ -12,9 +12,9 @@ namespace Crocodal.Samples.Project
     class WarehouseDatabase : Database
     {
         // This should code-generated
-        public Table<Product> Products => new(this);
-        public Table<Product> ArchivedProducts => new(this);
-        public View<AvailableProduct> AvailableProducts => new(this);
+        public Table<WarehouseDatabase, Product> Products => new(this);
+        public Table<WarehouseDatabase, ArchivedProduct> ArchivedProducts => new(this);
+        public View<WarehouseDatabase, AvailableProduct> AvailableProducts => new(this);
 
         [StoredProcedure("dbo.spSearchProducts")]
         public StoredProcedure<List<ProductDto>> SearchProducts(string term)
@@ -39,11 +39,12 @@ namespace Crocodal.Samples.Project
             base.Configure(builder);
 
             // This should be auto-discovered
-            builder.Configure(new ProductTable());
-            builder.Configure(new ArchivedProductTable());
-            builder.Configure(new AvailableProductView());
-            builder.Configure(new SearchProductsProcedure());
-            builder.Configure(new CalculatePriceFunction());
+            builder.Configure(new ProductTableConfiguration());
+            builder.Configure(new OwnerTableConfiguration());
+            builder.Configure(new ArchivedProductTableConfiguration());
+            builder.Configure(new AvailableProductViewConfiguration());
+            builder.Configure(new SearchProductsProcedureConfiguration());
+            builder.Configure(new CalculatePriceFunctionConfiguration());
         }
     }
 }

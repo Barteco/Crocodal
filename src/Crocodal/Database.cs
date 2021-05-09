@@ -131,29 +131,29 @@ namespace Crocodal
 
         #region Query/Insert/Update/Delete
 
-        public ITableStatement<TEntity> QueryTable<TEntity>()
+        public Table<Database, TEntity> FromTable<TEntity>()
         {
-            return new Table<TEntity>(this);
+            return new Table<Database, TEntity>(this);
         }
 
-        public IViewStatement<TEntity> QueryView<TEntity>()
+        public View<Database, TView> FromView<TView>()
         {
-            return new View<TEntity>(this);
+            return new View<Database, TView>(this);
         }
 
-        public IInsertStatement Insert(object entity, params object[] entities)
+        public Insert Insert(object entity, params object[] entities)
         {
-            return new InsertStatement(this, entity, entities);
+            return new Insert(this, entity, entities);
         }
 
-        public IUpdateStatement Update(object entity, params object[] entities)
+        public Update Update(object entity, params object[] entities)
         {
-            return new UpdateStatement(this, entity, entities);
+            return new Update(this, entity, entities);
         }
 
-        public IDeleteStatement Delete(object entity, params object[] entities)
+        public Delete Delete(object entity, params object[] entities)
         {
-            return new DeleteStatement(this, entity, entities);
+            return new Delete(this, entity, entities);
         }
 
         #endregion

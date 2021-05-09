@@ -7,6 +7,8 @@ namespace Crocodal
 {
     public static class StatementExtensions
     {
+        #region Query statement methods
+
         public static IQueryStatement<List<TEntity>> Query<TEntity>(this IQueryableStatement<TEntity> statement)
         {
             throw new NotImplementedException();
@@ -26,21 +28,29 @@ namespace Crocodal
         {
             throw new NotImplementedException();
         }
-        
+
+        #endregion
+
+        #region Insert statement methods
+
         public static IInsertStatement Insert<TEntity>(this IInsertableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
         {
             throw new NotImplementedException();
         }
 
-        public static IInsertStatement Insert<TEntity>(this IInsertableStatement<TEntity> statement, IQueryStatement<TEntity> query)
+        public static IInsertStatement Insert<TDatabase, TEntity>(this IInsertableStatement<TDatabase, TEntity> statement, Expression<Func<TDatabase, IQueryStatement<TEntity>>> expression) where TDatabase : IDatabase
         {
             throw new NotImplementedException();
         }
 
-        public static IInsertStatement Insert<TEntity>(this IInsertableStatement<TEntity> statement, IQueryStatement<List<TEntity>> query)
+        public static IInsertStatement Insert<TDatabase, TEntity>(this IInsertableStatement<TDatabase, TEntity> statement, Expression<Func<TDatabase, IQueryStatement<List<TEntity>>>> expression) where TDatabase : IDatabase
         {
             throw new NotImplementedException();
         }
+
+        #endregion
+
+        #region Update statement methods
 
         public static IUpdateStatement Update<TEntity>(this IBatchUpdatableStatement<TEntity> statement, Expression<Func<TEntity, TEntity>> expression)
         {
@@ -52,6 +62,10 @@ namespace Crocodal
             throw new NotImplementedException();
         }
 
+        #endregion
+
+        #region Delete statement methods
+
         public static IDeleteStatement Delete<TEntity>(this IBatchDeletableStatement<TEntity> statement)
         {
             throw new NotImplementedException();
@@ -62,17 +76,26 @@ namespace Crocodal
             throw new NotImplementedException();
         }
 
-        public static IJoinableQueryStatement<TEntity> Join<TEntity, TReference>(this IJoinableStatement<TEntity> statement, Expression<Func<TEntity, TReference>> expression)
+        #endregion
+
+        #region Fluent Query building 
+
+        public static IJoinableViewStatement<TEntity> Join<TEntity, TReference>(this IJoinableViewStatement<TEntity> statement, Expression<Func<TEntity, TReference>> expression)
         {
             throw new NotImplementedException();
         }
 
-        public static IWherableStatement<TEntity> Where<TEntity>(this IWherableStatement<TEntity> statement, Expression<Func<TEntity, bool>> expression)
+        public static IJoinableTableStatement<TEntity> Join<TEntity, TReference>(this IJoinableTableStatement<TEntity> statement, Expression<Func<TEntity, TReference>> expression)
         {
             throw new NotImplementedException();
         }
 
-        public static IWherableQueryStatement<TEntity> Where<TEntity>(this IWherableQueryStatement<TEntity> statement, Expression<Func<TEntity, bool>> expression)
+        public static IWherableViewStatement<TEntity> Where<TEntity>(this IWherableViewStatement<TEntity> statement, Expression<Func<TEntity, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IWherableTableStatement<TEntity> Where<TEntity>(this IWherableTableStatement<TEntity> statement, Expression<Func<TEntity, bool>> expression)
         {
             throw new NotImplementedException();
         }
@@ -101,6 +124,10 @@ namespace Crocodal
         {
             throw new NotImplementedException();
         }
+
+        #endregion
+
+        #region Shortcut execution calls
 
         public static List<TEntity> ExecuteQuery<TEntity>(this IQueryableStatement<TEntity> statement)
         {
@@ -142,24 +169,24 @@ namespace Crocodal
             return await statement.Exists().ExecuteAsync().ConfigureAwait(false);
         }
 
-        public static int ExecuteInsert<TDatabase, TEntity>(this IInsertableStatement<TEntity> statement, IQueryStatement<TEntity> query) 
+        public static int ExecuteInsert<TDatabase, TEntity>(this IInsertableStatement<TDatabase, TEntity> statement, Expression<Func<TDatabase, IQueryStatement<TEntity>>> expression) where TDatabase : IDatabase
         {
-            return statement.Insert(query).Execute();
+            return statement.Insert(expression).Execute();
         }
 
-        public static async Task<int> ExecuteInsertAsync<TEntity>(this IInsertableStatement<TEntity> statement, IQueryStatement<TEntity> query)
+        public static async Task<int> ExecuteInsertAsync<TDatabase, TEntity>(this IInsertableStatement<TDatabase, TEntity> statement, Expression<Func<TDatabase, IQueryStatement<TEntity>>> expression) where TDatabase : IDatabase
         {
-            return await statement.Insert(query).ExecuteAsync().ConfigureAwait(false);
+            return await statement.Insert(expression).ExecuteAsync().ConfigureAwait(false);
         }
 
-        public static int ExecuteInsert<TEntity>(this IInsertableStatement<TEntity> statement, IQueryStatement<List<TEntity>> query)
+        public static int ExecuteInsert<TDatabase, TEntity>(this IInsertableStatement<TDatabase, TEntity> statement, Expression<Func<TDatabase, IQueryStatement<List<TEntity>>>> expression) where TDatabase : IDatabase
         {
-            return statement.Insert(query).Execute();
+            return statement.Insert(expression).Execute();
         }
 
-        public static async Task<int> ExecuteInsertAsync<TEntity>(this IInsertableStatement<TEntity> statement, IQueryStatement<List<TEntity>> query)
+        public static async Task<int> ExecuteInsertAsync<TDatabase, TEntity>(this IInsertableStatement<TDatabase, TEntity> statement, Expression<Func<TDatabase, IQueryStatement<List<TEntity>>>> expression) where TDatabase : IDatabase
         {
-            return await statement.Insert(query).ExecuteAsync().ConfigureAwait(false);
+            return await statement.Insert(expression).ExecuteAsync().ConfigureAwait(false);
         }
 
         public static int ExecuteInsert<TEntity>(this IInsertableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
@@ -211,5 +238,7 @@ namespace Crocodal
         {
             return await statement.Delete(entity, entities).ExecuteAsync().ConfigureAwait(false);
         }
+
+        #endregion
     }
 }

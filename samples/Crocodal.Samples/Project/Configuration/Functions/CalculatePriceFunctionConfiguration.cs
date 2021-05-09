@@ -2,7 +2,7 @@
 
 namespace Crocodal.Samples.Project.Configuration.Functions
 {
-    class CalculatePriceFunction : IFunction
+    class CalculatePriceFunctionConfiguration : IFunctionConfiguration
     {
         public void Configure(IFunctionBuilder builder)
         {

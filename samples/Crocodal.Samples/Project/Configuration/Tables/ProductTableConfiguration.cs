@@ -2,7 +2,7 @@
 
 namespace Crocodal.Samples.Project.Configuration.Tables
 {
-    class ProductTable : ITable<Product>
+    class ProductTableConfiguration : ITableConfiguration<Product>
     {
         public void Configure(ITableBuilder<Product> builder)
         {

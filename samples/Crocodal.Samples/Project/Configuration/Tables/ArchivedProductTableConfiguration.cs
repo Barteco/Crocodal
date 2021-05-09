@@ -3,7 +3,7 @@
 namespace Crocodal.Samples.Project.Configuration.Tables
 {
 
-    class ArchivedProductTable : ITable<ArchivedProduct>
+    class ArchivedProductTableConfiguration : ITableConfiguration<ArchivedProduct>
     {
         public void Configure(ITableBuilder<ArchivedProduct> builder)
         {

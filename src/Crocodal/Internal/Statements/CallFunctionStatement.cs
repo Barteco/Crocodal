@@ -1,6 +1,6 @@
 ﻿namespace Crocodal.Internal.Statements
 {
-    internal class CallFunctionStatement<TResult> : DatabaseStatement<TResult>, IFunctionStatement<TResult>
+    internal class CallFunctionStatement<TResult> : DatabaseStatement<TResult>
     {
         public string Name { get; }
         public object Paramters { get; }

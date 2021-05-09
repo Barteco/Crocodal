@@ -4,11 +4,11 @@
     {
     }
 
-    public interface IUpdatableStatement<TEntity> : IBuildableStatement
+    public interface IUpdatableStatement<TEntity>
     {
     }
 
-    public interface IBatchUpdatableStatement<TEntity> : IBuildableStatement
+    public interface IBatchUpdatableStatement<TEntity>
     {
     }
 }

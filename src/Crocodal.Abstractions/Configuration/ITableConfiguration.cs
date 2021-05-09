@@ -1,6 +1,6 @@
 ﻿namespace Crocodal
 {
-    public interface ITable<TEntity>
+    public interface ITableConfiguration<TEntity>
     {
         void Configure(ITableBuilder<TEntity> builder);
     }

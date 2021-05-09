@@ -1,15 +1,11 @@
-﻿using Crocodal.Internal.Core;
-
-namespace Crocodal
+﻿namespace Crocodal
 {
-    public class View<TEntity> : IViewStatement<TEntity>
+    public class View<TDatabase, TEntity> : Query<TDatabase, TEntity>,
+        IJoinableViewStatement<TEntity>
+        where TDatabase : IDatabase
     {
-        public IStatementBuilder Builder { get; }
-
-        public View(IDatabase database)
+        public View(TDatabase database) : base(database)
         {
-            Builder = new QueryBuilder(database);
-            Builder.From<TEntity>();
         }
     }
 }

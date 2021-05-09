@@ -1,6 +1,6 @@
 ﻿namespace Crocodal.Internal.Core
 {
-    internal class QueryBuilder : IStatementBuilder
+    internal class QueryBuilder : IBuilder
     {
         private readonly IDatabase _database;
 
@@ -9,12 +9,12 @@
             _database = database;
         }
 
-        public IStatementBuilder From<TEntity>()
+        public IBuilder From<TEntity>()
         {
             return this;
         }
 
-        public IStatementBuilder Where<TEntity>()
+        public IBuilder Where<TEntity>()
         {
             return this;
         }

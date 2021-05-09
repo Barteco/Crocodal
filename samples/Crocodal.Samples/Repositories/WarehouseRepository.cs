@@ -39,7 +39,7 @@ namespace Crocodal.Samples.Repositories
             var product4 = await _database.Products.Where(e => e.Id == 4).ExecuteQuerySingleAsync();
             var deletedExplicitly = await _database.Products.ExecuteDeleteAsync(product3, product4);
 
-            var copyInsert = _database.Products.Insert(_database.Products.Where(p => !p.IsAvailable && p.DateAdded < DateTime.UtcNow.AddYears(-1)).Query());
+            var copyInsert = _database.ArchivedProducts.Insert(db => db.Products.Where(p => !p.IsAvailable && p.DateAdded < DateTime.UtcNow.AddYears(-1)).Select(e => new ArchivedProduct { /* ... */ }).Query());
             var copiedRows = await copyInsert.ExecuteAsync();
 
             queryResult = _database.ExecuteSql<List<string>>(querySql, new { x = 1 });
@@ -56,6 +56,11 @@ namespace Crocodal.Samples.Repositories
             price = await priceFunction.ExecuteAsync();
             price = _database.Execute(priceFunction);
             price = await _database.ExecuteAsync(priceFunction);
+
+            _database.Insert(new Product()).Execute();
+            var product5 = _database.FromTable<Product>().Where(e => e.Id == 5).ExecuteQuerySingle();
+            _database.Update(product5).Execute();
+            _database.Delete(product5).Execute();
         }
     }
 }

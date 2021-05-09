@@ -2,7 +2,7 @@
 
 namespace Crocodal.Samples.Project.Configuration.Tables
 {
-    class OwnerTable : ITable<Owner>
+    class OwnerTableConfiguration : ITableConfiguration<Owner>
     {
         public void Configure(ITableBuilder<Owner> builder)
         {

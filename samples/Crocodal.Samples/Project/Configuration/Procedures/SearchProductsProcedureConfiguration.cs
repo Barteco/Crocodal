@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Crocodal.Samples.Project.Configuration.Procedures
 {
-    class SearchProductsProcedure : IProcedure
+    class SearchProductsProcedureConfiguration : IStoredProcedureConfiguration
     {
-        public void Configure(IProcedureBuilder builder)
+        public void Configure(IStoredProcedureBuilder builder)
         {
             builder.SetSchema("dbo").SetName("spSearchProducts");
         }

@@ -6,7 +6,6 @@
     }
 
     public interface IQueryableStatement<TEntity>
-        : IBuildableStatement
     {
     }
 
@@ -16,62 +15,39 @@
     }
 
     public interface ITakeableStatement<TEntity>
-        : ISelectableStatement<TEntity>,
-        IQueryableStatement<TEntity>
+        : ISelectableStatement<TEntity>
     {
     }
 
     public interface ISkippableStatement<TEntity>
-        : ITakeableStatement<TEntity>,
-        ISelectableStatement<TEntity>,
-        IQueryableStatement<TEntity>
+        : ITakeableStatement<TEntity>
     {
     }
 
     public interface IOrderableStatement<TEntity>
-        : ISkippableStatement<TEntity>,
-        ITakeableStatement<TEntity>,
-        ISelectableStatement<TEntity>,
-        IQueryableStatement<TEntity>
+        : ISkippableStatement<TEntity>
     {
     }
 
-    public interface IWherableStatement<TEntity>
+    public interface IWherableViewStatement<TEntity>
+        : IOrderableStatement<TEntity>
+    {
+    }
+
+    public interface IWherableTableStatement<TEntity>
         : IOrderableStatement<TEntity>,
-        ISkippableStatement<TEntity>,
-        ITakeableStatement<TEntity>,
-        ISelectableStatement<TEntity>,
-        IQueryableStatement<TEntity>,
         IBatchUpdatableStatement<TEntity>,
         IBatchDeletableStatement<TEntity>
     {
     }
 
-    public interface IWherableQueryStatement<TEntity>
-        : IOrderableStatement<TEntity>,
-        ISkippableStatement<TEntity>,
-        ITakeableStatement<TEntity>,
-        ISelectableStatement<TEntity>,
-        IQueryableStatement<TEntity>
+    public interface IJoinableViewStatement<TEntity>
+        : IWherableViewStatement<TEntity>
     {
     }
 
-    public interface IJoinableStatement<TEntity>
-        : IOrderableStatement<TEntity>,
-        ISkippableStatement<TEntity>,
-        ITakeableStatement<TEntity>,
-        ISelectableStatement<TEntity>,
-        IQueryableStatement<TEntity>
-    {
-    }
-
-    public interface IJoinableQueryStatement<TEntity>
-        : IWherableQueryStatement<TEntity>,
-        IOrderableStatement<TEntity>,
-        ISkippableStatement<TEntity>,
-        ITakeableStatement<TEntity>,
-        ISelectableStatement<TEntity>,
-        IQueryableStatement<TEntity>
+    public interface IJoinableTableStatement<TEntity>
+        : IWherableTableStatement<TEntity>
     {
     }
 }

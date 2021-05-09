@@ -4,7 +4,8 @@
     {
     }
 
-    public interface IExecutableStatement<TResult> : IExecutableStatement
+    public interface IExecutableStatement<TResult> 
+        : IExecutableStatement
     {
     }
 }
