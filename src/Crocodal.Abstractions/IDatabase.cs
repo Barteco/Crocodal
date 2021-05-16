@@ -4,8 +4,8 @@ namespace Crocodal
 {
     public interface IDatabase
     {
-        TResult Execute<TResult>(IExecutableStatement<TResult> statement);
-        Task<TResult> ExecuteAsync<TResult>(IExecutableStatement<TResult> statement);
-        string ToSqlString<TResult>(IExecutableStatement<TResult> statement);
+        TResult Execute<TResult>(IExecutable<TResult> statement);
+        Task<TResult> ExecuteAsync<TResult>(IExecutable<TResult> statement);
+        string ToSqlString<TResult>(IExecutable<TResult> statement);
     }
 }

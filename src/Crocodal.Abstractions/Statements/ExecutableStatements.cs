@@ -1,11 +1,11 @@
 ﻿namespace Crocodal
 {
-    public interface IExecutableStatement
+    public interface IExecutable<TResult>
+        : IExecutable
     {
     }
 
-    public interface IExecutableStatement<TResult> 
-        : IExecutableStatement
+    public interface IExecutable
     {
     }
 }

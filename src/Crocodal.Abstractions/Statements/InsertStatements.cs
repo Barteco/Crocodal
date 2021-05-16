@@ -1,16 +1,10 @@
 ﻿namespace Crocodal
 {
-    public interface IInsertStatement 
-        : IExecutableStatement<int>
+    public interface IInsertable<TSource>
     {
     }
 
-    public interface IInsertableStatement<TEntity>
-    {
-    }
-
-    public interface IInsertableStatement<TDatabase, TEntity>
-        where TDatabase : IDatabase
+    public interface IInsert : IExecutable<int>
     {
     }
 }

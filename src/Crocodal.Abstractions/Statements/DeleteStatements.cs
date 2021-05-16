@@ -1,15 +1,18 @@
 ﻿namespace Crocodal
 {
-    public interface IDeleteStatement 
-        : IExecutableStatement<int>
+    public interface IDeletable<TSource>
     {
     }
 
-    public interface IDeletableStatement<TEntity>
+    public interface IDelete : IExecutable<int>
     {
     }
 
-    public interface IBatchDeletableStatement<TEntity>
+    public interface IWherableDelete<TSource> : IDelete
+    {
+    }
+
+    public interface IDeleteBuilder<TSource> : IWherableDelete<TSource>
     {
     }
 }

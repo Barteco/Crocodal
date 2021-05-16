@@ -11,22 +11,22 @@ namespace Crocodal.Internal.Unwrapping
             _provider = provider;
         }
 
-        public object[] Execute(params IExecutableStatement[] statements)
+        public object[] Execute(params IExecutable[] statements)
         {
             return _provider.Execute(UnwrapAll(statements));
         }
 
-        public async Task<object[]> ExecuteAsync(params IExecutableStatement[] statements)
+        public async Task<object[]> ExecuteAsync(params IExecutable[] statements)
         {
             return await _provider.ExecuteAsync(UnwrapAll(statements)).ConfigureAwait(false);
         }
 
-        public string ToSqlString(IExecutableStatement statement)
+        public string ToSqlString(IExecutable statement)
         {
             return _provider.ToSqlString(UnwrapAll(statement)[0]);
         }
 
-        private IExecutableStatement[] UnwrapAll(params IExecutableStatement[] statements)
+        private IExecutable[] UnwrapAll(params IExecutable[] statements)
         {
             for (int i = 0; i < statements.Length; i++)
             {

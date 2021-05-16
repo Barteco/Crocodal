@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Crocodal.Abstractions\Crocodal.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Crocodal.Core\Crocodal.Core.csproj" />
     <ProjectReference Include="..\..\src\Crocodal\Crocodal.csproj" />
   </ItemGroup>
 

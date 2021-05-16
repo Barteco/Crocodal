@@ -4,8 +4,8 @@ namespace Crocodal
 {
     public interface IProvider
     {
-        object[] Execute(params IExecutableStatement[] statements);
-        Task<object[]> ExecuteAsync(params IExecutableStatement[] statements);
-        string ToSqlString(IExecutableStatement statement);
+        object[] Execute(params IExecutable[] statements);
+        Task<object[]> ExecuteAsync(params IExecutable[] statements);
+        string ToSqlString(IExecutable statement);
     }
 }

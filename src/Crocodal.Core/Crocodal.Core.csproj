@@ -2,14 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Description>O/RM for .NET</Description>
-    <PackageTags>database orm sql dal</PackageTags>
-    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Crocodal.Abstractions\Crocodal.Abstractions.csproj" />
-    <ProjectReference Include="..\Crocodal.Core\Crocodal.Core.csproj" />
   </ItemGroup>
 
 </Project>

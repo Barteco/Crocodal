@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crocodal.Transpiler", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crocodal.Transpiler.Tests", "test\Crocodal.Transpiler.Tests\Crocodal.Transpiler.Tests.csproj", "{8601E920-F04C-4B49-9BD1-8025F17EA905}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crocodal.Core", "src\Crocodal.Core\Crocodal.Core.csproj", "{6F5880AD-1C25-4BED-9B7E-90A1729AA438}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{8601E920-F04C-4B49-9BD1-8025F17EA905}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8601E920-F04C-4B49-9BD1-8025F17EA905}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8601E920-F04C-4B49-9BD1-8025F17EA905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F5880AD-1C25-4BED-9B7E-90A1729AA438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F5880AD-1C25-4BED-9B7E-90A1729AA438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F5880AD-1C25-4BED-9B7E-90A1729AA438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F5880AD-1C25-4BED-9B7E-90A1729AA438}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +85,7 @@ Global
 		{202CE179-9740-4CA4-8D22-22E78401F0BD} = {188C9595-310F-435E-AD9A-311D5268B05F}
 		{4360CA45-C98E-46A3-96E8-5E81AF6788F7} = {188C9595-310F-435E-AD9A-311D5268B05F}
 		{8601E920-F04C-4B49-9BD1-8025F17EA905} = {8E81F6AE-14BB-43CA-8313-5B8CD7E56BBC}
+		{6F5880AD-1C25-4BED-9B7E-90A1729AA438} = {188C9595-310F-435E-AD9A-311D5268B05F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2DAA8A6F-63F9-4763-A4C1-8FBF1603C0BD}

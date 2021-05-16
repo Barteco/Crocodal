@@ -16,14 +16,15 @@ namespace Crocodal.Samples.Project.Configuration.Procedures
             string term)
         {
             return db.AvailableProducts
+                .Query()
                 .Where(e => e.Name.Contains(term))
                 .Select(e => new ProductDto
                 {
                     Id = e.Id,
                     Name = e.Name,
-                    Price = db.CalculatePrice(e.NetPrice)
+                    Price = db.CalculatePrice(e.NetPrice).Execute()
                 })
-                .ExecuteQuery();
+                .Execute();
         }
     }
 }

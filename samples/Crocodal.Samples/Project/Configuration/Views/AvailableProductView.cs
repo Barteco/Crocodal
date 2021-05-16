@@ -14,6 +14,7 @@ namespace Crocodal.Samples.Project.Configuration.Views
         public List<AvailableProduct> Body([Reference] WarehouseDatabase db)
         {
             return db.Products
+                .Query()
                 .Where(e => e.IsAvailable)
                 .Select(e => new AvailableProduct
                 {
@@ -21,7 +22,7 @@ namespace Crocodal.Samples.Project.Configuration.Views
                     Name = e.Name,
                     NetPrice = e.NetPrice,
                 })
-                .ExecuteQuery();
+                .Execute();
         }
     }
 }

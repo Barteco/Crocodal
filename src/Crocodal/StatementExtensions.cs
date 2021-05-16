@@ -1,242 +1,179 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Crocodal.Builders;
+using Crocodal.Core.Statements;
+using Crocodal.Internal.Sourcing;
+using System;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace Crocodal
 {
     public static class StatementExtensions
     {
-        #region Query statement methods
+        #region Statement building starting points
 
-        public static IQueryStatement<List<TEntity>> Query<TEntity>(this IQueryableStatement<TEntity> statement)
+        public static IQueryBuilder<TSource> Query<TSource>(this IQueryable<TSource> source, Action<QueryOptionsBuilder> options = null)
         {
-            throw new NotImplementedException();
+            return new QueryBuilder<TSource>(((ISourcable)source).GetDatabase(), options);
         }
 
-        public static IQueryStatement<TEntity> QuerySingle<TEntity>(this IQueryableStatement<TEntity> statement)
+        public static IInsert InsertFrom<TSource>(this IInsertable<TSource> source, IQuery<TSource> from)
         {
-            throw new NotImplementedException();
+            return new InsertFromStatement<TSource>(((ISourcable)source).GetDatabase(), from);
         }
 
-        public static IQueryStatement<int> Count<TEntity>(this IQueryableStatement<TEntity> statement)
+        public static IInsert Insert<TSource>(this IInsertable<TSource> source, TSource entity, params TSource[] entities)
         {
-            throw new NotImplementedException();
+            return new InsertStatement(((ISourcable)source).GetDatabase(), entity, entities);
         }
 
-        public static IQueryStatement<bool> Exists<TEntity>(this IQueryableStatement<TEntity> statement)
+        public static IUpdateBuilder<TSource> Update<TSource>(this IUpdatable<TSource> source)
         {
-            throw new NotImplementedException();
+            return new UpdateBuilder<TSource>(((ISourcable)source).GetDatabase());
         }
 
-        #endregion
-
-        #region Insert statement methods
-
-        public static IInsertStatement Insert<TEntity>(this IInsertableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
+        public static IUpdate Update<TSource>(this IInsertable<TSource> source, TSource entity, params TSource[] entities)
         {
-            throw new NotImplementedException();
+            return new UpdateStatement(((ISourcable)source).GetDatabase(), entity, entities);
         }
 
-        public static IInsertStatement Insert<TDatabase, TEntity>(this IInsertableStatement<TDatabase, TEntity> statement, Expression<Func<TDatabase, IQueryStatement<TEntity>>> expression) where TDatabase : IDatabase
+        public static IDeleteBuilder<TSource> Delete<TSource>(this IDeletable<TSource> source)
         {
-            throw new NotImplementedException();
+            return new DeleteBuilder<TSource>(((ISourcable)source).GetDatabase());
         }
 
-        public static IInsertStatement Insert<TDatabase, TEntity>(this IInsertableStatement<TDatabase, TEntity> statement, Expression<Func<TDatabase, IQueryStatement<List<TEntity>>>> expression) where TDatabase : IDatabase
+        public static IDelete Delete<TSource>(this IInsertable<TSource> source, TSource entity, params TSource[] entities)
         {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region Update statement methods
-
-        public static IUpdateStatement Update<TEntity>(this IBatchUpdatableStatement<TEntity> statement, Expression<Func<TEntity, TEntity>> expression)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static IUpdateStatement Update<TEntity>(this IUpdatableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region Delete statement methods
-
-        public static IDeleteStatement Delete<TEntity>(this IBatchDeletableStatement<TEntity> statement)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static IDeleteStatement Delete<TEntity>(this IDeletableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
-        {
-            throw new NotImplementedException();
+            return new DeleteStatement(((ISourcable)source).GetDatabase(), entity, entities);
         }
 
         #endregion
 
         #region Fluent Query building 
 
-        public static IJoinableViewStatement<TEntity> Join<TEntity, TReference>(this IJoinableViewStatement<TEntity> statement, Expression<Func<TEntity, TReference>> expression)
+        public static IJoinableQuery<TSource> Join<TSource, TNavigation>(this IJoinableQuery<TSource> statement, Expression<Func<TSource, TNavigation>> expression)
         {
             throw new NotImplementedException();
         }
 
-        public static IJoinableTableStatement<TEntity> Join<TEntity, TReference>(this IJoinableTableStatement<TEntity> statement, Expression<Func<TEntity, TReference>> expression)
+        public static IJoinableQuery<TSource1, TSource2> Join<TSource1, TSource2>(this IJoinableQuery<TSource1> statement, IQuery<TSource2> join, Expression<Func<TSource1, TSource2, bool>> on)
         {
             throw new NotImplementedException();
         }
 
-        public static IWherableViewStatement<TEntity> Where<TEntity>(this IWherableViewStatement<TEntity> statement, Expression<Func<TEntity, bool>> expression)
+        public static IWherableQuery<TSource> Where<TSource>(this IWherableQuery<TSource> statement, Expression<Func<TSource, bool>> expression)
         {
             throw new NotImplementedException();
         }
 
-        public static IWherableTableStatement<TEntity> Where<TEntity>(this IWherableTableStatement<TEntity> statement, Expression<Func<TEntity, bool>> expression)
+        public static IOrderableQuery<TSource> OrderBy<TSource, TColumn>(this IOrderableQuery<TSource> statement, Expression<Func<TSource, TColumn>> expression)
         {
             throw new NotImplementedException();
         }
 
-        public static IOrderableStatement<TDestination> Select<TEntity, TDestination>(this ISelectableStatement<TEntity> statement, Expression<Func<TEntity, TDestination>> expression)
+        public static IOrderableQuery<TSource> OrderByDescending<TSource, TColumn>(this IOrderableQuery<TSource> statement, Expression<Func<TSource, TColumn>> expression)
         {
             throw new NotImplementedException();
         }
 
-        public static IOrderableStatement<TEntity> OrderBy<TEntity, TColumn>(this IOrderableStatement<TEntity> statement, Expression<Func<TEntity, TColumn>> expression)
+        public static ITakeableQuery<TSource> Skip<TSource>(this ISkippableQuery<TSource> statement, int skip)
         {
             throw new NotImplementedException();
         }
 
-        public static IOrderableStatement<TEntity> OrderByDescending<TEntity, TColumn>(this IOrderableStatement<TEntity> statement, Expression<Func<TEntity, TColumn>> expression)
+        public static ISelectableQuery<TSource> Take<TSource>(this ITakeableQuery<TSource> statement, int take)
         {
             throw new NotImplementedException();
         }
 
-        public static ITakeableStatement<TEntity> Skip<TEntity>(this ISkippableStatement<TEntity> statement, int skip)
+        public static IJoinableQuery<TDestination> Select<TSource, TDestination>(this ISelectableQuery<TSource> statement, Expression<Func<TSource, TDestination>> expression)
         {
             throw new NotImplementedException();
         }
 
-        public static ISelectableStatement<TEntity> Take<TEntity>(this ITakeableStatement<TEntity> statement, int take)
+        public static IJoinableQuery<TDestination> Select<TSource1, TSource2, TDestination>(this ISelectableQuery<TSource1, TSource2> statement, Expression<Func<TSource1, TSource2, TDestination>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IQueryable<TSource> Union<TSource>(this IUnionableQuery<TSource> statement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IUnionableQuery<TSource> Union<TSource>(this IUnionableQuery<TSource> statement, IQuery<TSource> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IQueryable<TSource> UnionAll<TSource>(this IUnionableQuery<TSource> statement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IUnionableQuery<TSource> UnionAll<TSource>(this IUnionableQuery<TSource> statement, IQuery<TSource> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IExecutable<TSource> First<TSource>(this IQuery<TSource> statement)
+        {
+            throw new NotImplementedException();
+        }
+        public static IExecutable<TSource> FirstOrDefault<TSource>(this IQuery<TSource> statement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IExecutable<TSource> Single<TSource>(this IQuery<TSource> statement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IExecutable<TSource> SingleOrDefault<TSource>(this IQuery<TSource> statement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IExecutable<int> Count<TSource>(this IQuery<TSource> statement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IExecutable<bool> Exists<TSource>(this IQuery<TSource> statement)
         {
             throw new NotImplementedException();
         }
 
         #endregion
 
-        #region Shortcut execution calls
+        #region Fluent Update building
 
-        public static List<TEntity> ExecuteQuery<TEntity>(this IQueryableStatement<TEntity> statement)
+        public static IWherableUpdate<TSource> Where<TSource>(this IWherableUpdate<TSource> statement, Expression<Func<TSource, bool>> expression)
         {
-            return statement.Query().Execute();
+            throw new NotImplementedException();
         }
 
-        public static async Task<List<TEntity>> ExecuteQueryAsync<TEntity>(this IQueryableStatement<TEntity> statement)
+        public static ISettableUpdate<TSource> Set<TSource, TValue>(this ISettableUpdate<TSource> statement, Expression<Func<TSource, TValue>> column, Expression<Func<TSource, TValue>> expression)
         {
-            return await statement.Query().ExecuteAsync().ConfigureAwait(false);
+            throw new NotImplementedException();
         }
 
-        public static TEntity ExecuteQuerySingle<TEntity>(this IQueryableStatement<TEntity> statement)
+        public static ISettableUpdate<TSource> Set<TSource, TValue>(this ISettableUpdate<TSource> statement, Expression<Func<TSource, TValue>> column, TValue value)
         {
-            return statement.QuerySingle().Execute();
+            throw new NotImplementedException();
         }
 
-        public static async Task<TEntity> ExecuteQuerySingleAsync<TEntity>(this IQueryableStatement<TEntity> statement)
+        public static IUpdate Set<TSource>(this ISettableUpdate<TSource> statement, Expression<Func<TSource, TSource>> expression)
         {
-            return await statement.QuerySingle().ExecuteAsync().ConfigureAwait(false);
+            throw new NotImplementedException();
         }
 
-        public static int ExecuteCount<TEntity>(this IQueryableStatement<TEntity> statement)
-        {
-            return statement.Count().Execute();
-        }
+        #endregion
 
-        public static async Task<int> ExecuteCountAsync<TEntity>(this IQueryableStatement<TEntity> statement)
-        {
-            return await statement.Count().ExecuteAsync().ConfigureAwait(false);
-        }
+        #region Fluent Delete building
 
-        public static bool ExecuteExists<TEntity>(this IQueryableStatement<TEntity> statement)
+        public static IWherableDelete<TSource> Where<TSource>(this IWherableDelete<TSource> statement, Expression<Func<TSource, bool>> expression)
         {
-            return statement.Exists().Execute();
-        }
-
-        public static async Task<bool> ExecuteExistsAsync<TEntity>(this IQueryableStatement<TEntity> statement)
-        {
-            return await statement.Exists().ExecuteAsync().ConfigureAwait(false);
-        }
-
-        public static int ExecuteInsert<TDatabase, TEntity>(this IInsertableStatement<TDatabase, TEntity> statement, Expression<Func<TDatabase, IQueryStatement<TEntity>>> expression) where TDatabase : IDatabase
-        {
-            return statement.Insert(expression).Execute();
-        }
-
-        public static async Task<int> ExecuteInsertAsync<TDatabase, TEntity>(this IInsertableStatement<TDatabase, TEntity> statement, Expression<Func<TDatabase, IQueryStatement<TEntity>>> expression) where TDatabase : IDatabase
-        {
-            return await statement.Insert(expression).ExecuteAsync().ConfigureAwait(false);
-        }
-
-        public static int ExecuteInsert<TDatabase, TEntity>(this IInsertableStatement<TDatabase, TEntity> statement, Expression<Func<TDatabase, IQueryStatement<List<TEntity>>>> expression) where TDatabase : IDatabase
-        {
-            return statement.Insert(expression).Execute();
-        }
-
-        public static async Task<int> ExecuteInsertAsync<TDatabase, TEntity>(this IInsertableStatement<TDatabase, TEntity> statement, Expression<Func<TDatabase, IQueryStatement<List<TEntity>>>> expression) where TDatabase : IDatabase
-        {
-            return await statement.Insert(expression).ExecuteAsync().ConfigureAwait(false);
-        }
-
-        public static int ExecuteInsert<TEntity>(this IInsertableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
-        {
-            return statement.Insert(entity, entities).Execute();
-        }
-
-        public static async Task<int> ExecuteInsertAsync<TEntity>(this IInsertableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
-        {
-            return await statement.Insert(entity, entities).ExecuteAsync().ConfigureAwait(false);
-        }
-
-        public static int ExecuteUpdate<TEntity>(this IBatchUpdatableStatement<TEntity> statement, Expression<Func<TEntity, TEntity>> expression)
-        {
-            return statement.Update(expression).Execute();
-        }
-
-        public static async Task<int> ExecuteUpdateAsync<TEntity>(this IBatchUpdatableStatement<TEntity> statement, Expression<Func<TEntity, TEntity>> expression)
-        {
-            return await statement.Update(expression).ExecuteAsync().ConfigureAwait(false);
-        }
-
-        public static int ExecuteUpdate<TEntity>(this IUpdatableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
-        {
-            return statement.Update(entity, entities).Execute();
-        }
-
-        public static async Task<int> ExecuteUpdateAsync<TEntity>(this IUpdatableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
-        {
-            return await statement.Update(entity, entities).ExecuteAsync().ConfigureAwait(false);
-        }
-
-        public static int ExecuteDelete<TEntity>(this IBatchDeletableStatement<TEntity> statement)
-        {
-            return statement.Delete().Execute();
-        }
-
-        public static async Task<int> ExecuteDeleteAsync<TEntity>(this IBatchDeletableStatement<TEntity> statement)
-        {
-            return await statement.Delete().ExecuteAsync().ConfigureAwait(false);
-        }
-
-        public static int ExecuteDelete<TEntity>(this IDeletableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
-        {
-            return statement.Delete(entity, entities).Execute();
-        }
-
-        public static async Task<int> ExecuteDeleteAsync<TEntity>(this IDeletableStatement<TEntity> statement, TEntity entity, params TEntity[] entities)
-        {
-            return await statement.Delete(entity, entities).ExecuteAsync().ConfigureAwait(false);
+            throw new NotImplementedException();
         }
 
         #endregion
