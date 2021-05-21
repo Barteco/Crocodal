@@ -1,4 +1,4 @@
-﻿namespace Crocodal.Builders
+﻿namespace Crocodal
 {
     public class QueryOptionsBuilder
     {

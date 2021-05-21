@@ -8,12 +8,29 @@ namespace Crocodal
 {
     public abstract partial class Database : IDatabase
     {
+        #region Members
+        
         protected IProvider Provider { get; }
+        protected DatabaseOptions Options { get; }
 
-        public virtual void Configure(IDatabaseBuilder builder)
+        #endregion
+
+        #region Configuration
+
+        public Database()
+        {
+        }
+
+        public Database(Action<DatabaseOptionsBuilder> configuration)
+        {
+        }
+
+        protected virtual void Configure(IDatabaseBuilder builder)
         {
             // auto-discover configuration from assembly
         }
+
+        #endregion
 
         #region Execute(Async) methods
 
@@ -133,24 +150,84 @@ namespace Crocodal
 
         #region Query/Insert/Update/Delete
 
-        public IQueryBuilder<TResult> Query<TResult>()
+        public IQueryBuilder<TSource> Query<TSource>()
         {
-            return new QueryBuilder<TResult>(this, null);
+            return new QueryBuilder<TSource>(this, null);
         }
 
-        public IQueryBuilder<TResult> Query<TResult>(Action<QueryOptionsBuilder> options)
+        public IQueryBuilder<TSource> Query<TSource>(Action<QueryOptionsBuilder> options)
         {
-            return new QueryBuilder<TResult>(this, options);
+            return new QueryBuilder<TSource>(this, options);
         }
 
-        public IQueryBuilder<TResult> Query<TResult>(IQuery<TResult> from)
+        public IQueryBuilder<(TSource1, TSource2)> Query<TSource1, TSource2>()
         {
-            return new QueryBuilder<TResult>(this, null);
+            return new QueryBuilder<(TSource1, TSource2)>(this, null);
+        }
+        
+        public IQueryBuilder<(TSource1, TSource2)> Query<TSource1, TSource2>(Action<QueryOptionsBuilder> options)
+        {
+            return new QueryBuilder<(TSource1, TSource2)>(this, options);
         }
 
-        public IQueryBuilder<TResult> Query<TResult>(IQuery<TResult> from, Action<QueryOptionsBuilder> options)
+        public IQueryBuilder<(TSource1, TSource2, TSource3)> Query<TSource1, TSource2, TSource3>()
         {
-            return new QueryBuilder<TResult>(this, options);
+            return new QueryBuilder<(TSource1, TSource2, TSource3)>(this, null);
+        }
+        
+        public IQueryBuilder<(TSource1, TSource2, TSource3)> Query<TSource1, TSource2, TSource3>(Action<QueryOptionsBuilder> options)
+        {
+            return new QueryBuilder<(TSource1, TSource2, TSource3)>(this, options);
+        }
+
+        public IQueryBuilder<(TSource1, TSource2, TSource3, TSource4)> Query<TSource1, TSource2, TSource3, TSource4>()
+        {
+            return new QueryBuilder<(TSource1, TSource2, TSource3, TSource4)>(this, null);
+        }
+
+        public IQueryBuilder<(TSource1, TSource2, TSource3, TSource4)> Query<TSource1, TSource2, TSource3, TSource4>(Action<QueryOptionsBuilder> options)
+        {
+            return new QueryBuilder<(TSource1, TSource2, TSource3, TSource4)>(this, options);
+        }
+
+        public IQueryBuilder<TSource> Query<TSource>(ISource<TSource> from)
+        {
+            return new QueryBuilder<TSource>(this, null);
+        }
+
+        public IQueryBuilder<TSource> Query<TSource>(ISource<TSource> from, Action<QueryOptionsBuilder> options)
+        {
+            return new QueryBuilder<TSource>(this, options);
+        }
+
+        public IQueryBuilder<(TSource1, TSource2)> Query<TSource1, TSource2>(ISource<TSource1> from1, ISource<TSource2> from2)
+        {
+            return new QueryBuilder<(TSource1, TSource2)>(this, null);
+        }
+        
+        public IQueryBuilder<(TSource1, TSource2)> Query<TSource1, TSource2>(ISource<TSource1> from1, ISource<TSource2> from2, Action<QueryOptionsBuilder> options)
+        {
+            return new QueryBuilder<(TSource1, TSource2)>(this, options);
+        }
+
+        public IQueryBuilder<(TSource1, TSource2, TSource3)> Query<TSource1, TSource2, TSource3>(ISource<TSource1> from1, ISource<TSource2> from2, ISource<TSource3> from3)
+        {
+            return new QueryBuilder<(TSource1, TSource2, TSource3)>(this, null);
+        }
+        
+        public IQueryBuilder<(TSource1, TSource2, TSource3)> Query<TSource1, TSource2, TSource3>(ISource<TSource1> from1, ISource<TSource2> from2, ISource<TSource3> from3, Action<QueryOptionsBuilder> options)
+        {
+            return new QueryBuilder<(TSource1, TSource2, TSource3)>(this, options);
+        }
+
+        public IQueryBuilder<(TSource1, TSource2, TSource3, TSource4)> Query<TSource1, TSource2, TSource3, TSource4>(ISource<TSource1> from1, ISource<TSource2> from2, ISource<TSource3> from3, ISource<TSource4> from4)
+        {
+            return new QueryBuilder<(TSource1, TSource2, TSource3, TSource4)>(this, null);
+        }
+        
+        public IQueryBuilder<(TSource1, TSource2, TSource3, TSource4)> Query<TSource1, TSource2, TSource3, TSource4>(ISource<TSource1> from1, ISource<TSource2> from2, ISource<TSource3> from3, ISource<TSource4> from4, Action<QueryOptionsBuilder> options)
+        {
+            return new QueryBuilder<(TSource1, TSource2, TSource3, TSource4)>(this, options);
         }
 
         public IInsert Insert(object entity, params object[] entities)

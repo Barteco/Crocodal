@@ -78,15 +78,17 @@ namespace Crocodal.Samples.Repositories
             var product7 = _database.Query<Product>(options => options.AsEditable().WithComment("my query tag").WithHint("NOLOCK"))
                 .Where(e => e.Id == 7).Execute();
 
-
             // WITH CTE explicit
             var cte1 = _database.Query<Product>();
             var cte2 = _database.Query(cte1).Where(e => e.IsAvailable);
             var withQuery = _database.Query(cte2).Where(e => e.NetPrice > 0);
 
             // Recursive CTE
-            var managerQuery = _database.Query<Employee>().Where(e => e.ManagerId == null).Select(e => new EmployeeDto { Id = e.Id, Name = e.Name, ManagerId = e.ManagerId, Level = 1 });
-            var employeeQuery = _database.Query<Employee>().Join(managerQuery, (l, r) => l.ManagerId == r.Id).Select((e, r) => new EmployeeDto { Id = e.Id, Name = e.Name, ManagerId = e.ManagerId, Level = r.Level + 1 });
+            var managerQuery = _database.Query<Employee>().Where(e => e.ManagerId == null)
+                .Select(e => new EmployeeDto { Id = e.Id, Name = e.Name, ManagerId = e.ManagerId, Level = 1 });
+            var employeeQuery = _database.Query<Employee>().Join(managerQuery, (l, r) => l.ManagerId == r.Id)
+                .Where((e, mq) => e.Id == 234)
+                .Select((e, mq) => new EmployeeDto { Id = e.Id, Name = e.Name, ManagerId = e.ManagerId, Level = mq.Level + 1 });
             var hierarchyUnion = managerQuery.UnionAll(employeeQuery);
 
             var employeeHierarchy = _database.Query(hierarchyUnion)
@@ -97,10 +99,37 @@ namespace Crocodal.Samples.Repositories
                     Level = e.Level,
                     Manager = _database.Query<Employee>().Where(m => m.Id == e.ManagerId).Select(m => m.Name).First().Execute()
                 })
+                .Distinct()
                 .Execute();
 
             // Subquery
             _database.Products.Query().Select(e => new ProductDto()).OrderBy(e => e.Price).Execute();
+
+            // Multiquery
+            _database.Query<Product, Owner, Employee>();
+
+            _database.Query(_database.Products, _database.AvailableProducts, hierarchyUnion)
+                .Join(managerQuery, (p, _, _, m) => p.Id == m.Id);
+
+            // Group by
+            var groupedProducts = _database.Query<Product>()
+                .GroupBy(p => new { p.Id, p.Name })
+                .Having(p => p.Key.Id > 4 && p.Count() > 5 && p.Max(e => e.NetPrice) > 50)
+                .Select(p => new
+                {
+                    p.Key.Id,
+                    p.Key.Name,
+                    Count = p.Count(),
+                    Max = p.Max(e => e.NetPrice),
+                    CountAvailable = p.Where(e => e.IsAvailable).Count(),
+                    MaxAvailable = p.Where(e => e.IsAvailable).Max(e => e.NetPrice),
+                    AllAvailable = p.Where(e => e.IsAvailable).Select(e => new { e.Name, e.NetPrice }).AsList()
+                })
+                .Execute();
+
+            // Mapping
+            Product[] productArray = _database.Query<Product>().AsArray().Execute();
+            Dictionary<int, Product> productByOwnerDict = _database.Query<Product>().AsDictionary(e => e.OwnerId).Execute();
         }
     }
 }

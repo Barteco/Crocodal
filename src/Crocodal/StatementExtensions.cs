@@ -54,12 +54,47 @@ namespace Crocodal
             throw new NotImplementedException();
         }
 
-        public static IJoinableQuery<TSource1, TSource2> Join<TSource1, TSource2>(this IJoinableQuery<TSource1> statement, IQuery<TSource2> join, Expression<Func<TSource1, TSource2, bool>> on)
+        public static IJoinableQuery<(TSource1, TSource2)> Join<TSource1, TSource2>(this IJoinableQuery<TSource1> statement, ISource<TSource2> join, Expression<Func<TSource1, TSource2, bool>> on)
         {
             throw new NotImplementedException();
         }
 
-        public static IWherableQuery<TSource> Where<TSource>(this IWherableQuery<TSource> statement, Expression<Func<TSource, bool>> expression)
+        public static IJoinableQuery<(TSource1, TSource2, TSource3)> Join<TSource1, TSource2, TSource3>(this IJoinableQuery<(TSource1, TSource2)> statement, ISource<TSource3> join, Expression<Func<TSource1, TSource2, TSource3, bool>> on)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IJoinableQuery<(TSource1, TSource2, TSource3, TSource4)> Join<TSource1, TSource2, TSource3, TSource4>(this IJoinableQuery<(TSource1, TSource2, TSource3)> statement, ISource<TSource4> join, Expression<Func<TSource1, TSource2, TSource3, TSource4, bool>> on)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IWherableQuery<TSource> Where<TSource>(this IWherableQuery<TSource> statement, Expression<Func<TSource, bool>> condition)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IWherableQuery<(TSource1, TSource2)> Where<TSource1, TSource2>(this IWherableQuery<(TSource1, TSource2)> statement, Expression<Func<TSource1, TSource2, bool>> condition)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IWherableQuery<(TSource1, TSource2, TSource3)> Where<TSource1, TSource2, TSource3>(this IWherableQuery<(TSource1, TSource2, TSource3)> statement, Expression<Func<TSource1, TSource2, TSource3, bool>> condition)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IWherableQuery<(TSource1, TSource2, TSource3, TSource4)> Where<TSource1, TSource2, TSource3, TSource4>(this IWherableQuery<(TSource1, TSource2, TSource3, TSource4)> statement, Expression<Func<TSource1, TSource2, TSource3, TSource4, bool>> condition)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IHavingableQuery<IGroupingBuilder<TGroup, TSource>> GroupBy<TSource, TGroup>(this IGroupableQuery<TSource> statement, Expression<Func<TSource, TGroup>> grouping)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IHavingableQuery<IGroupingBuilder<TGroup, TSource>> Having<TGroup, TSource>(this IHavingableQuery<IGroupingBuilder<TGroup, TSource>> statement, Expression<Func<IAggregableGrouping<TGroup, TSource>, bool>> condition)
         {
             throw new NotImplementedException();
         }
@@ -89,7 +124,23 @@ namespace Crocodal
             throw new NotImplementedException();
         }
 
-        public static IJoinableQuery<TDestination> Select<TSource1, TSource2, TDestination>(this ISelectableQuery<TSource1, TSource2> statement, Expression<Func<TSource1, TSource2, TDestination>> expression)
+        public static IJoinableQuery<TDestination> Select<TSource1, TSource2, TDestination>(this ISelectableQuery<(TSource1, TSource2)> statement, Expression<Func<TSource1, TSource2, TDestination>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IJoinableQuery<TDestination> Select<TSource1, TSource2, TSource3, TDestination>(this ISelectableQuery<(TSource1, TSource2, TSource3)> statement, Expression<Func<TSource1, TSource2, TSource3, TDestination>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IJoinableQuery<TDestination> Select<TSource1, TSource2, TSource3, TSource4, TDestination>(this ISelectableQuery<(TSource1, TSource2, TSource3, TSource4)> statement, Expression<Func<TSource1, TSource2, TSource3, TSource4, TDestination>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public static IUnionableQuery<TSource> Distinct<TSource>(this IDistinctableQuery<TSource> statement)
         {
             throw new NotImplementedException();
         }
@@ -114,10 +165,36 @@ namespace Crocodal
             throw new NotImplementedException();
         }
 
+        public static IExecutable<decimal> Average<TSource>(this IAggregableQuery<TSource> statement, Expression<Func<TSource, decimal>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IExecutable<int> Count<TSource>(this IAggregableQuery<TSource> statement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IExecutable<decimal> Max<TSource>(this IAggregableQuery<TSource> statement, Expression<Func<TSource, decimal>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IExecutable<decimal> Min<TSource>(this IAggregableQuery<TSource> statement, Expression<Func<TSource, decimal>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IExecutable<decimal> Sum<TSource>(this IAggregableQuery<TSource> statement, Expression<Func<TSource, decimal>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
         public static IExecutable<TSource> First<TSource>(this IQuery<TSource> statement)
         {
             throw new NotImplementedException();
         }
+
         public static IExecutable<TSource> FirstOrDefault<TSource>(this IQuery<TSource> statement)
         {
             throw new NotImplementedException();
@@ -133,12 +210,12 @@ namespace Crocodal
             throw new NotImplementedException();
         }
 
-        public static IExecutable<int> Count<TSource>(this IQuery<TSource> statement)
+        public static IArrayQuery<TSource> AsArray<TSource>(this IQuery<TSource> statement)
         {
             throw new NotImplementedException();
         }
 
-        public static IExecutable<bool> Exists<TSource>(this IQuery<TSource> statement)
+        public static IDictionaryQuery<TKey, TSource> AsDictionary<TKey, TSource>(this IQuery<TSource> statement, Expression<Func<TSource, TKey>> expression)
         {
             throw new NotImplementedException();
         }

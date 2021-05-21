@@ -7,7 +7,7 @@ namespace Crocodal.Samples.Project
 {
     partial class WarehouseDatabase : Database
     {
-        public override void Configure(IDatabaseBuilder builder)
+        protected override void Configure(IDatabaseBuilder builder)
         {
             base.Configure(builder);
 

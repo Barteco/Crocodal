@@ -6,7 +6,15 @@ namespace Crocodal
     {
     }
 
-    public interface IQuery<TSource> : IExecutable<List<TSource>>
+    public interface IArrayQuery<TSource> : IExecutable<TSource[]>
+    {
+    }
+
+    public interface IDictionaryQuery<TKey, TSource> : IExecutable<Dictionary<TKey, TSource>>
+    {
+    }
+
+    public interface IQuery<TSource> : ISource<TSource>, IExecutable<List<TSource>>
     {
     }
 
@@ -14,11 +22,15 @@ namespace Crocodal
     {
     }
 
-    public interface ISelectableQuery<TSource> : IUnionableQuery<TSource>
+    public interface IAggregableQuery<TSource> : IUnionableQuery<TSource>
     {
     }
 
-    public interface ISelectableQuery<TSource1, TSource2> : IUnionableQuery<TSource1>
+    public interface IDistinctableQuery<TSource> : IAggregableQuery<TSource>
+    {
+    }
+
+    public interface ISelectableQuery<TSource> : IDistinctableQuery<TSource>
     {
     }
 
@@ -26,15 +38,7 @@ namespace Crocodal
     {
     }
 
-    public interface ITakeableQuery<TSource1, TSource2> : ISelectableQuery<TSource1, TSource2>
-    {
-    }
-
     public interface ISkippableQuery<TSource> : ITakeableQuery<TSource>
-    {
-    }
-
-    public interface ISkippableQuery<TSource1, TSource2> : ITakeableQuery<TSource1, TSource2>
     {
     }
 
@@ -42,24 +46,19 @@ namespace Crocodal
     {
     }
 
-    public interface IOrderableQuery<TSource1, TSource2> : ISkippableQuery<TSource1, TSource2>
+    public interface IHavingableQuery<TSource> : IOrderableQuery<TSource>
     {
     }
 
-    public interface IWherableQuery<TSource> : IOrderableQuery<TSource>
+    public interface IGroupableQuery<TSource> : IOrderableQuery<TSource>
     {
     }
 
-    public interface IWherableQuery<TSource1, TSource2> : IOrderableQuery<TSource1, TSource2>
+    public interface IWherableQuery<TSource> : IGroupableQuery<TSource>
     {
     }
-
 
     public interface IJoinableQuery<TSource> : IWherableQuery<TSource>
-    {
-    }
-
-    public interface IJoinableQuery<TSource1, TSource2> : IWherableQuery<TSource1, TSource2>
     {
     }
 
