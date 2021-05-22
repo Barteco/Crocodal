@@ -99,22 +99,32 @@ namespace Crocodal
             throw new NotImplementedException();
         }
 
-        public static IOrderableQuery<TSource> OrderBy<TSource, TColumn>(this IOrderableQuery<TSource> statement, Expression<Func<TSource, TColumn>> expression)
+        public static ISecondaryOrderableQuery<TSource> OrderBy<TSource, TColumn>(this IOrderableQuery<TSource> statement, Expression<Func<TSource, TColumn>> expression)
         {
             throw new NotImplementedException();
         }
 
-        public static IOrderableQuery<TSource> OrderByDescending<TSource, TColumn>(this IOrderableQuery<TSource> statement, Expression<Func<TSource, TColumn>> expression)
+        public static ISecondaryOrderableQuery<TSource> OrderByDescending<TSource, TColumn>(this IOrderableQuery<TSource> statement, Expression<Func<TSource, TColumn>> expression)
         {
             throw new NotImplementedException();
         }
 
-        public static ITakeableQuery<TSource> Skip<TSource>(this ISkippableQuery<TSource> statement, int skip)
+        public static ISecondaryOrderableQuery<TSource> ThenOrderBy<TSource, TColumn>(this ISecondaryOrderableQuery<TSource> statement, Expression<Func<TSource, TColumn>> expression)
         {
             throw new NotImplementedException();
         }
 
-        public static ISelectableQuery<TSource> Take<TSource>(this ITakeableQuery<TSource> statement, int take)
+        public static ISecondaryOrderableQuery<TSource> ThenOrderByDescending<TSource, TColumn>(this ISecondaryOrderableQuery<TSource> statement, Expression<Func<TSource, TColumn>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static ILimitableQuery<TSource> Offset<TSource>(this IOffsetableQuery<TSource> statement, int skip)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static ISelectableQuery<TSource> Limit<TSource>(this ILimitableQuery<TSource> statement, int take)
         {
             throw new NotImplementedException();
         }

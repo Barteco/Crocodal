@@ -34,15 +34,19 @@ namespace Crocodal
     {
     }
 
-    public interface ITakeableQuery<TSource> : ISelectableQuery<TSource>
+    public interface ILimitableQuery<TSource> : ISelectableQuery<TSource>
     {
     }
 
-    public interface ISkippableQuery<TSource> : ITakeableQuery<TSource>
+    public interface IOffsetableQuery<TSource> : ILimitableQuery<TSource>
     {
     }
 
-    public interface IOrderableQuery<TSource> : ISkippableQuery<TSource>
+    public interface IOrderableQuery<TSource> : IOffsetableQuery<TSource>
+    {
+    }
+
+    public interface ISecondaryOrderableQuery<TSource> : IOffsetableQuery<TSource>
     {
     }
 

@@ -18,7 +18,7 @@ namespace Crocodal.Samples.Repositories
 
         public async Task Query()
         {
-            IQuery<string> query = _database.Products.Query().Join(e => e.Owner).Where(e => e.IsAvailable).OrderBy(e => e.Name).Skip(10).Take(20).Select(e => e.Name);
+            IQuery<string> query = _database.Products.Query().Join(e => e.Owner).Where(e => e.IsAvailable).OrderBy(e => e.Name).Offset(10).Limit(20).Select(e => e.Name);
             IDelete batchDelete = _database.Products.Delete().Where(e => e.IsAvailable);
             IInsert batchInsert = _database.Products.Insert(new Product(), new Product());
             IUpdate batchUpdate = _database.Products.Update().Where(e => e.IsAvailable).Set(e => new Product { IsAvailable = false });
@@ -92,7 +92,8 @@ namespace Crocodal.Samples.Repositories
             var hierarchyUnion = managerQuery.UnionAll(employeeQuery);
 
             var employeeHierarchy = _database.Query(hierarchyUnion)
-                .OrderBy(e => e.Level).OrderBy(e => e.ManagerId)
+                .OrderBy(e => e.Level)
+                .ThenOrderByDescending(e => e.ManagerId)
                 .Select(e => new EmployeeHierarchy
                 {
                     Employee = e.Name,
