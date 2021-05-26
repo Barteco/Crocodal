@@ -1,16 +1,12 @@
-﻿using Crocodal.Internal.Sourcing;
-
-namespace Crocodal.Entities
+﻿namespace Crocodal.Entities
 {
-    public class Table<TSource> : ITable<TSource>, ISourcable
+    public class Table<TSource> : ITable<TSource>
     {
-        private readonly IDatabase _database;
+        public IDatabase Database { get; }
 
         public Table(IDatabase database)
         {
-            _database = database;
+            Database = database;
         }
-
-        IDatabase ISourcable.GetDatabase() => _database;
     }
 }

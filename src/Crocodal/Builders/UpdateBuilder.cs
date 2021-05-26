@@ -1,19 +1,14 @@
-﻿using Crocodal.Internal.Sourcing;
-using Crocodal.Internal.Unwrapping;
-
-namespace Crocodal.Builders
+﻿namespace Crocodal.Builders
 {
-    internal class UpdateBuilder<TSource> : IUpdateBuilder<TSource>, ISourcable, IUnwrappable
+    internal class UpdateBuilder<TSource> : IUpdateBuilder<TSource>, IBuilder
     {
-        private readonly IDatabase _database;
+        public IDatabase Database { get; }
 
         public UpdateBuilder(IDatabase database)
         {
-            _database = database;
+            Database = database;
         }
 
-        IDatabase ISourcable.GetDatabase() => _database;
-
-        IExecutable IUnwrappable.Unwrap() => throw new System.NotImplementedException();
+        public ISqlExpression Build() => throw new System.NotImplementedException();
     }
 }

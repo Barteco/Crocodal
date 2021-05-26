@@ -1,19 +1,14 @@
-﻿using Crocodal.Internal.Sourcing;
-using Crocodal.Internal.Unwrapping;
-
-namespace Crocodal.Entities
+﻿namespace Crocodal.Entities
 {
-    public class StoredProcedure<TResult> : IStoredProcedure<TResult>, ISourcable, IUnwrappable
+    public class StoredProcedure<TResult> : IStoredProcedure<TResult>, IBuilder
     {
-        private readonly IDatabase _database;
+        public IDatabase Database { get; }
 
         public StoredProcedure(IDatabase database, string name, object paramters)
         {
-            _database = database;
+            Database = database;
         }
 
-        IDatabase ISourcable.GetDatabase() => _database;
-
-        IExecutable IUnwrappable.Unwrap() => throw new System.NotImplementedException();
+        public ISqlExpression Build() => throw new System.NotImplementedException();
     }
 }

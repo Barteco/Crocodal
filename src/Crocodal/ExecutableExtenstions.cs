@@ -1,5 +1,4 @@
-﻿using Crocodal.Core;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Crocodal
 {
@@ -7,17 +6,17 @@ namespace Crocodal
     {
         public static TResult Execute<TResult>(this IExecutable<TResult> statement)
         {
-            return (statement as ExecutableStatement<TResult>).Database.Execute(statement);
+            return (statement as IBuilder).Database.Execute(statement);
         }
 
         public static async Task<TResult> ExecuteAsync<TResult>(this IExecutable<TResult> statement)
         {
-            return await (statement as ExecutableStatement<TResult>).Database.ExecuteAsync(statement).ConfigureAwait(false);
+            return await (statement as IBuilder).Database.ExecuteAsync(statement).ConfigureAwait(false);
         }
 
         public static string ToSqlString<TResult>(this IExecutable<TResult> statement)
         {
-            return (statement as ExecutableStatement<TResult>).Database.ToSqlString(statement);
+            return (statement as IBuilder).Database.ToSqlString(statement);
         }
     }
 }

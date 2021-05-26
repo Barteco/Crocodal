@@ -1,5 +1,4 @@
 ﻿using Crocodal.Builders;
-using Crocodal.Internal.Sourcing;
 using System;
 using System.Linq.Expressions;
 
@@ -11,37 +10,37 @@ namespace Crocodal
 
         public static IQueryBuilder<TSource> Query<TSource>(this IQueryable<TSource> source, Action<QueryOptionsBuilder> options = null)
         {
-            return new QueryBuilder<TSource>(((ISourcable)source).GetDatabase(), options);
+            return new QueryBuilder<TSource>(null, options);
         }
 
         public static IInsert InsertFrom<TSource>(this IInsertable<TSource> source, IQuery<TSource> from)
         {
-            return new InsertBuilder<TSource>(((ISourcable)source).GetDatabase());
+            return new InsertBuilder<TSource>(null);
         }
 
         public static IInsert Insert<TSource>(this IInsertable<TSource> source, TSource entity, params TSource[] entities)
         {
-            return new InsertBuilder<TSource>(((ISourcable)source).GetDatabase());
+            return new InsertBuilder<TSource>(null);
         }
 
         public static IUpdateBuilder<TSource> Update<TSource>(this IUpdatable<TSource> source)
         {
-            return new UpdateBuilder<TSource>(((ISourcable)source).GetDatabase());
+            return new UpdateBuilder<TSource>(null);
         }
 
         public static IUpdate Update<TSource>(this IInsertable<TSource> source, TSource entity, params TSource[] entities)
         {
-            return new UpdateBuilder<TSource>(((ISourcable)source).GetDatabase());
+            return new UpdateBuilder<TSource>(null);
         }
 
         public static IDeleteBuilder<TSource> Delete<TSource>(this IDeletable<TSource> source)
         {
-            return new DeleteBuilder<TSource>(((ISourcable)source).GetDatabase());
+            return new DeleteBuilder<TSource>(null);
         }
 
         public static IDelete Delete<TSource>(this IInsertable<TSource> source, TSource entity, params TSource[] entities)
         {
-            return new DeleteBuilder<TSource>(((ISourcable)source).GetDatabase());
+            return new DeleteBuilder<TSource>(null);
         }
 
         #endregion
