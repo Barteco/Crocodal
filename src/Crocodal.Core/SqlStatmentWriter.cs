@@ -115,6 +115,8 @@ namespace Crocodal.Core
                 case DecimalLiteralExpression e: Visit(e); break;
                 case DoubleDbTypeExpression e: Visit(e); break;
                 case DoubleLiteralExpression e: Visit(e); break;
+                case ExecuteStoredProcedureExpression e: Visit(e); break;
+                case FunctionCallExpression e: Visit(e); break;
                 case IdentifierExpression e: Visit(e); break;
                 case InsertIntoExpression e: Visit(e); break;
                 case InsertIntoSelectExpression e: Visit(e); break;
@@ -519,6 +521,36 @@ namespace Crocodal.Core
                     Write(", ");
                 }
             }
+        }
+
+        #endregion
+
+        #region Procedures
+
+        protected virtual void Visit(ExecuteStoredProcedureExpression expression)
+        {
+            Write("EXEC ");
+            Visit(expression.Procedure);
+            if (expression.Parameters?.Children?.Length > 0)
+            {
+                Write(" ");
+                Visit(expression.Parameters);
+            }
+        }
+        
+        #endregion
+
+        #region Functions
+
+        protected virtual void Visit(FunctionCallExpression expression)
+        {
+            Visit(expression.Function);
+            Write("(");
+            if (expression.Parameters?.Children?.Length > 0)
+            {
+                Visit(expression.Parameters);
+            }
+            Write(")");
         }
 
         #endregion
