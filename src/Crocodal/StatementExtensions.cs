@@ -1,5 +1,4 @@
 ﻿using Crocodal.Builders;
-using Crocodal.Core.Statements;
 using Crocodal.Internal.Sourcing;
 using System;
 using System.Linq.Expressions;
@@ -17,12 +16,12 @@ namespace Crocodal
 
         public static IInsert InsertFrom<TSource>(this IInsertable<TSource> source, IQuery<TSource> from)
         {
-            return new InsertFromStatement<TSource>(((ISourcable)source).GetDatabase(), from);
+            return new InsertBuilder<TSource>(((ISourcable)source).GetDatabase());
         }
 
         public static IInsert Insert<TSource>(this IInsertable<TSource> source, TSource entity, params TSource[] entities)
         {
-            return new InsertStatement(((ISourcable)source).GetDatabase(), entity, entities);
+            return new InsertBuilder<TSource>(((ISourcable)source).GetDatabase());
         }
 
         public static IUpdateBuilder<TSource> Update<TSource>(this IUpdatable<TSource> source)
@@ -32,7 +31,7 @@ namespace Crocodal
 
         public static IUpdate Update<TSource>(this IInsertable<TSource> source, TSource entity, params TSource[] entities)
         {
-            return new UpdateStatement(((ISourcable)source).GetDatabase(), entity, entities);
+            return new UpdateBuilder<TSource>(((ISourcable)source).GetDatabase());
         }
 
         public static IDeleteBuilder<TSource> Delete<TSource>(this IDeletable<TSource> source)
@@ -42,7 +41,7 @@ namespace Crocodal
 
         public static IDelete Delete<TSource>(this IInsertable<TSource> source, TSource entity, params TSource[] entities)
         {
-            return new DeleteStatement(((ISourcable)source).GetDatabase(), entity, entities);
+            return new DeleteBuilder<TSource>(((ISourcable)source).GetDatabase());
         }
 
         #endregion

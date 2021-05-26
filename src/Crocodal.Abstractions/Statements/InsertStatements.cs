@@ -7,4 +7,8 @@
     public interface IInsert : IExecutable<int>
     {
     }
+
+    public interface IInsertBuilder<TSource> : IInsert
+    {
+    }
 }

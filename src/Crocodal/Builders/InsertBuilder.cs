@@ -1,14 +1,13 @@
 ﻿using Crocodal.Internal.Sourcing;
 using Crocodal.Internal.Unwrapping;
-using System;
 
 namespace Crocodal.Builders
 {
-    internal class QueryBuilder<TSource> : IQueryBuilder<TSource>, ISourcable, IUnwrappable
+    internal class InsertBuilder<TSource> : IInsertBuilder<TSource>, ISourcable, IUnwrappable
     {
         private readonly IDatabase _database;
 
-        public QueryBuilder(IDatabase database, Action<QueryOptionsBuilder> options)
+        public InsertBuilder(IDatabase database)
         {
             _database = database;
         }
