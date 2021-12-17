@@ -13,6 +13,16 @@ namespace Crocodal.Core
 
         protected virtual string VariablePrefixSymbol => "@";
 
+        public string Write(SqlExpression sqlExpression)
+        {
+            _builder.Clear();
+            _indentation = 0;
+
+            Visit(sqlExpression);
+
+            return _builder.ToString();
+        }
+
         protected void Write(string value)
         {
             _builder.Append(value);
@@ -40,6 +50,7 @@ namespace Crocodal.Core
         {
             _indentation++;
         }
+
         protected void DecreaseIndentation()
         {
             _indentation--;
@@ -85,7 +96,6 @@ namespace Crocodal.Core
                 Visit(statement.Value);
             }
             Write(';');
-
         }
 
         protected virtual void Visit(VariableName statement)
