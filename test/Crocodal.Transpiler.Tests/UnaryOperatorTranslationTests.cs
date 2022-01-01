@@ -7,7 +7,7 @@ namespace Crocodal.Transpiler.Tests
 {
     public class UnaryOperatorTranslationTests : IClassFixture<CompilerFixture>
     {
-        private readonly StatementTranslator _translator = new StatementTranslator();
+        private readonly StatementTranslator _translator = new();
         private readonly CompilerFixture _fixture;
 
         public UnaryOperatorTranslationTests(CompilerFixture fixture)

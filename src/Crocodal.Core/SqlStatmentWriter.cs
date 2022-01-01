@@ -11,10 +11,10 @@ namespace Crocodal.Core
     {
         #region Members
 
-        private StringBuilder _builder = new StringBuilder();
+        private readonly StringBuilder _builder = new();
         private int _indentation;
 
-        private Dictionary<Operator, string> _binaryOperators = new Dictionary<Operator, string>
+        private Dictionary<Operator, string> _binaryOperators = new()
         {
             [Operator.AndAlso] = "AND",
             [Operator.OrElse] = "OR",
@@ -32,7 +32,7 @@ namespace Crocodal.Core
             [Operator.Modulo] = "%"
         };
 
-        private Dictionary<Operator, string> _unaryOperators = new Dictionary<Operator, string>
+        private readonly Dictionary<Operator, string> _unaryOperators = new()
         {
             [Operator.UnaryPlus] = "+",
             [Operator.Negate] = "-",
@@ -537,7 +537,7 @@ namespace Crocodal.Core
                 Visit(expression.Parameters);
             }
         }
-        
+
         #endregion
 
         #region Functions

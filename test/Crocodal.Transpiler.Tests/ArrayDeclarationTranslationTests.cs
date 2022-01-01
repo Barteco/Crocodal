@@ -6,7 +6,7 @@ namespace Crocodal.Transpiler.Tests
 {
     public class ArrayDeclarationTranslationTests : IClassFixture<CompilerFixture>
     {
-        private readonly StatementTranslator _translator = new StatementTranslator();
+        private readonly StatementTranslator _translator = new();
         private readonly CompilerFixture _fixture;
 
         public ArrayDeclarationTranslationTests(CompilerFixture fixture)

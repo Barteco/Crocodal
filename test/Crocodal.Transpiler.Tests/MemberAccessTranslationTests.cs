@@ -8,7 +8,7 @@ namespace Crocodal.Transpiler.Tests
 {
     public class MemberAccessTranslationTests : IClassFixture<CompilerFixture>
     {
-        private readonly StatementTranslator _translator = new StatementTranslator();
+        private readonly StatementTranslator _translator = new();
         private readonly CompilerFixture _fixture;
 
         public MemberAccessTranslationTests(CompilerFixture fixture)

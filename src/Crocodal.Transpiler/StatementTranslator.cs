@@ -13,14 +13,14 @@ namespace Crocodal.Transpiler
 {
     public class StatementTranslator
     {
-        private string[] _commonNamespaces = new string[]
+        private readonly string[] _commonNamespaces = new string[]
         { 
             "System", 
             "System.Collections.Generic", 
             "System.Text" 
         };
 
-        private Dictionary<string, Type> _typeNameToTypeMap = new Dictionary<string, Type>
+        private readonly Dictionary<string, Type> _typeNameToTypeMap = new()
         {
             { "object", typeof(object) },
             { "char", typeof(char) },

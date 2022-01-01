@@ -6,7 +6,7 @@ namespace Crocodal.Tests
 {
     public partial class SqlStatementWritesTests
     {
-        private readonly SqlStatmentWriter _writer = new SqlStatmentWriter();
+        private readonly SqlStatmentWriter _writer = new();
         private readonly ITestOutputHelper _output;
 
         private const char Tab = '\t';
