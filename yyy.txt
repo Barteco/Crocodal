@@ -1,0 +1,27 @@
+
+.Join<Warehouse>((p, w) => p.WarehouseId == w.Id, opts => opt.WithNoLock()) => // JOIN [dbo].[Warehouses] w ON [p].[WarehouseId] = [w].[Id] WITH (NOLOCK)
+.InnerJoin
+.LeftJoin
+.RightJoin
+
+onConventionsSetup(builder)
+{
+	builder.NamingConvention = new CustomNamingConvention();
+}
+
+onConfiguring(builder)
+{
+	builder.AutodiscoverConfigurations()
+
+	builder.Schema<ProductSchema>("schProduct", schBuilder => 
+	{
+		schBuilder.Configure(new ProductConfiguration());
+	})
+}
+
+
+class DatabaseStructure
+{
+	void CreateTable()
+}
+
