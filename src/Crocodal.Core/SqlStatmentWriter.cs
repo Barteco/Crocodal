@@ -52,16 +52,6 @@ namespace Crocodal.Core
 
         #region Writing
 
-        public string Write(SqlExpression sqlExpression)
-        {
-            _builder.Clear();
-            _indentation = 0;
-
-            Visit(sqlExpression);
-
-            return _builder.ToString();
-        }
-
         protected void Write(string value)
         {
             _builder.Append(value);
